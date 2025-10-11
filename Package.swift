@@ -11,6 +11,10 @@ let package = Package(
             name: "Shimmers",
             targets: ["Shimmers"]
         ),
+        .library(
+            name: "ShimmersCLIWrapper",
+            targets: ["ShimmersCLIWrapper"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.6.0")),
@@ -29,6 +33,13 @@ let package = Package(
         .target(
             name: "Shimmers",
             dependencies: ["ShimmersMacros"],
+        ),
+        .target(
+            name: "ShimmersCLIWrapper",
+            dependencies: [
+                .target(name: "Shimmers"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
+            ],
         ),
     ],
 )
