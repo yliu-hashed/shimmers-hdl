@@ -45,5 +45,9 @@ let package = Package(
             name: "ShimmersInternalLogicTests",
             dependencies: ["Shimmers"],
         ),
+        .testTarget(
+            name: "ShimmersInternalRuntimeTests",
+            dependencies: ["Shimmers"],
+        ),
     ],
 )
