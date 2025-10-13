@@ -24,6 +24,14 @@ struct Counter {
 }
 ```
 
+## Documentation
+
+Documentations for Shimmers can be accessed on Swift Package Index.
+Here is the links for the documentation of each of Shimmers components:
+
+* [Shimmers](https://swiftpackageindex.com/yliu-hashed/shimmers-hdl/documentation)
+* [ShimmersCLIWrapper](https://swiftpackageindex.com/yliu-hashed/shimmers-hdl/documentation/shimmerscliwrapper)
+
 ## Release
 
 Since Shimmers uses Swift Macro through [swift-syntax](https://github.com/swiftlang/swift-syntax), you should use the Exact version Shimmers supports.
