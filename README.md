@@ -1,5 +1,5 @@
 [![Swift 6.2](https://img.shields.io/badge/swift-6.2-F05138?style=for-the-badge&logo=swift)](https://www.swift.org)
-[[Check Status](https://img.shields.io/github/check-runs/yliu-hashed/shimmers-hdl/main?style=for-the-badge)](https://github.com/yliu-hashed/shimmers-hdl/actions)
+[![Check Status](https://img.shields.io/github/check-runs/yliu-hashed/shimmers-hdl/main?style=for-the-badge)](https://github.com/yliu-hashed/shimmers-hdl/actions)
 
 [![SHIMMERS HDL Logo](Images/logo.jpg)](https://swiftpackageindex.com/yliu-hashed/shimmers-hdl/documentation/shimmers)
 
