@@ -30,7 +30,7 @@ Documentations for Shimmers can be accessed on Swift Package Index.
 Here is the links for the documentation of each of Shimmers components:
 
 * [Shimmers](https://swiftpackageindex.com/yliu-hashed/shimmers-hdl/documentation)
-* [ShimmersCLIWrapper](https://swiftpackageindex.com/yliu-hashed/shimmers-hdl/documentation/shimmerscliwrapper)
+* [ShimmersCLIWrapper](https://swiftpackageindex.com/yliu-hashed/shimmers-hdl/documentation/shimmerscliwrapper) - A command-line wrapper for any hardware generation code
 
 ## Release
 
