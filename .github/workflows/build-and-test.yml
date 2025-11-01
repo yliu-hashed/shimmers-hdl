@@ -9,6 +9,8 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Dependencies
+        run: sudo DEBIAN_FRONTEND=noninteractive apt-get -y install libcurl4-openssl-dev
       - name: Setup Swiftly
         run: |
           curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
