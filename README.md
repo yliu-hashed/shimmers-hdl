@@ -1,6 +1,7 @@
 [![Swift 6.2](https://img.shields.io/badge/swift-6.2-F05138?style=for-the-badge&logo=swift)](https://www.swift.org)
+[[Check Status](https://img.shields.io/github/check-runs/yliu-hashed/shimmers-hdl/main?style=for-the-badge)](https://github.com/yliu-hashed/shimmers-hdl/actions)
 
-![SHIMMERS HDL Logo](Images/logo.jpg)
+[![SHIMMERS HDL Logo](Images/logo.jpg)](https://swiftpackageindex.com/yliu-hashed/shimmers-hdl/documentation/shimmers)
 
 Shimmers (Synthesize Hardware In Modular Macro Expansions and Runtime in Swift) is a functional framework for creating circuits.
 The principles behind Shimmers are to use functional code in Swift to describe hardware.
