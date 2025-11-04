@@ -20,6 +20,10 @@ fileprivate struct TernaryOperators {
     static func double1(a: Bool, b: Bool, c: Bool, d: Bool, e: Bool) -> Self {
         return .init(result: a ? b : c ? d : e)
     }
+
+    static func double2(a: Bool, b: Bool, c: Bool, d: Bool, e: Bool) -> Self {
+        return .init(result: a ? b ? c : d : e)
+    }
 }
 
 @Suite(
@@ -74,6 +78,35 @@ struct TernaryOperatorTestSuite {
                         for e in [true, false] {
                             let truth = a ? b : c ? d : e
                             #expect(sim(a, b, c, d, e) == truth, "\(a) ? \(b) : \(c) ? \(d) : \(e)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test func double2() async throws {
+        let network = await dumpSimpleNetwork(of: TernaryOperatorsRef.double2)
+
+        func sim(_ a: Bool, _ b: Bool, _ c: Bool, _ d: Bool, _ e: Bool) -> Bool {
+            let inputs: [String: UInt64] = [
+                "0": UInt64(a ? 1 : 0),
+                "1": UInt64(b ? 1 : 0),
+                "2": UInt64(c ? 1 : 0),
+                "3": UInt64(d ? 1 : 0),
+                "4": UInt64(e ? 1 : 0)
+            ]
+            let outputs = simulate(network: network, inputs: inputs)
+            return outputs["result"]! != 0
+        }
+
+        for a in [true, false] {
+            for b in [true, false] {
+                for c in [true, false] {
+                    for d in [true, false] {
+                        for e in [true, false] {
+                            let truth = a ? b ? c : d : e
+                            #expect(sim(a, b, c, d, e) == truth, "\(a) ? \(b) ? \(c) : \(d) : \(e)")
                         }
                     }
                 }

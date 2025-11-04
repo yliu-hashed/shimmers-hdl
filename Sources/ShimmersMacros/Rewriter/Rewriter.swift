@@ -27,7 +27,7 @@ class Rewriter: SyntaxRewriter {
                 let ternary = UnresolvedTernaryExprSyntax(expr)!
                 return [
                     " ><?>< ",
-                    visit(ternary.thenExpression),
+                    "(\(visit(ternary.thenExpression)))",
                     " ><|>< ",
                 ]
             default:
@@ -42,7 +42,7 @@ class Rewriter: SyntaxRewriter {
         let condExpr = visit(expr.condition.trimmed)
         let thenExpr = visit(expr.thenExpression.trimmed)
         let elseExpr = visit(expr.elseExpression.trimmed)
-        let expr = ExprSyntax("\(condExpr) ><?>< \(thenExpr) ><|>< \(elseExpr)")
+        let expr = ExprSyntax("\(condExpr) ><?>< (\(thenExpr)) ><|>< \(elseExpr)")
         return expr
     }
 
