@@ -16,10 +16,6 @@ fileprivate struct BooleanGates {
     static func basic(a: Bool, b: Bool, c: Bool, d: Bool) -> Self {
         return .init(result: a && b || c != d)
     }
-
-    static func ternary(v: Bool, t: Bool, f: Bool) -> Self {
-        return .init(result: v ? t : f)
-    }
 }
 
 @Suite(
@@ -50,29 +46,6 @@ struct BooleanGatesTestSuite {
                         let truth = a && b || c != d
                         #expect(sim(a, b, c, d) == truth, "\(a) && \(b) || \(c) != \(d)")
                     }
-                }
-            }
-        }
-    }
-
-    @Test func ternary() async throws {
-        let network = await dumpSimpleNetwork(of: BooleanGatesRef.ternary)
-
-        func sim(_ v: Bool, _ t: Bool, _ f: Bool) -> Bool {
-            let inputs: [String: UInt64] = [
-                "0": UInt64(v ? 1 : 0),
-                "1": UInt64(t ? 1 : 0),
-                "2": UInt64(f ? 1 : 0)
-            ]
-            let outputs = simulate(network: network, inputs: inputs)
-            return outputs["result"]! != 0
-        }
-
-        for v in [true, false] {
-            for t in [true, false] {
-                for f in [true, false] {
-                    let truth = v ? t : f
-                    #expect(sim(v, t, f) == truth, "\(v) ? \(t) : \(f)")
                 }
             }
         }

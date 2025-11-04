@@ -7,10 +7,10 @@
 //
 
 infix operator ><?>< : _TerneryConvertPrecedence
-infix operator ><|>< : _TerneryConvertPrecedence
+infix operator ><|>< : TernaryPrecedence
 
 precedencegroup _TerneryConvertPrecedence {
-    associativity : left
+    associativity : right
     higherThan    : TernaryPrecedence
     lowerThan     : LogicalDisjunctionPrecedence
 }
