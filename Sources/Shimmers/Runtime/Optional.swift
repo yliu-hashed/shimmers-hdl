@@ -33,12 +33,12 @@ extension Optional: Wire where Wrapped: Wire {
         }
     }
 
-    public init(byPoppingBits source: inout some _BitPopper) {
-        let valid = Bool.init(byPoppingBits: &source)
+    public init(_byPoppingBits source: inout some _BitPopper) {
+        let valid = Bool.init(_byPoppingBits: &source)
         guard valid else {
             self = nil
             return
         }
-        self = Wrapped(byPoppingBits: &source)
+        self = Wrapped(_byPoppingBits: &source)
     }
 }

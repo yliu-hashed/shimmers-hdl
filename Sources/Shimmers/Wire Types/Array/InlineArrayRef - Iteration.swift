@@ -47,9 +47,9 @@ public struct InlineArrayIteratorRef<let count: Int, ElementRef: WireRef> {
         self.arrayRef = arrayRef
     }
 
-    public init(byPoppingBits builder: inout some _WirePopper) {
-        indexRef = .init(byPoppingBits: &builder)
-        arrayRef = .init(byPoppingBits: &builder)
+    public init(_byPoppingBits builder: inout some _WirePopper) {
+        indexRef = .init(_byPoppingBits: &builder)
+        arrayRef = .init(_byPoppingBits: &builder)
     }
 
     public mutating func next() -> OptionalRef<ElementRef> {

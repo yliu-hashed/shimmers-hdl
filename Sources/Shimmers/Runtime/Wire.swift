@@ -9,7 +9,7 @@
 public protocol Wire {
     static var bitWidth: Int { get }
 
-    init(byPoppingBits source: inout some _BitPopper)
+    init(_byPoppingBits source: inout some _BitPopper)
     func _traverse(using traverser: inout some _BitTraverser)
 }
 
@@ -22,7 +22,7 @@ extension Wire {
 
     internal init(from arr: consuming [Bool]) {
         var builder = _ArrayBitPopper(array: arr)
-        self.init(byPoppingBits: &builder)
+        self.init(_byPoppingBits: &builder)
     }
 
     @inlinable

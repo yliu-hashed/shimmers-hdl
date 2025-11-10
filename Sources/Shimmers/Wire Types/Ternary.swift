@@ -22,7 +22,7 @@ public struct _TernaryConvertLHSPartial<R: WireRef>: Sendable {
 
 public func ><?>< <R: WireRef> (lhs: BoolRef, rhs: @autoclosure () -> R) -> _TernaryConvertLHSPartial<R> {
     var builder = _ZeroWirePopper()
-    @_Local var first: R = R(byPoppingBits: &builder)
+    @_Local var first: R = R(_byPoppingBits: &builder)
     _if(lhs) {
         first = rhs()
     }
@@ -32,7 +32,7 @@ public func ><?>< <R: WireRef> (lhs: BoolRef, rhs: @autoclosure () -> R) -> _Ter
 
 public func ><|>< <R: WireRef> (lhs: _TernaryConvertLHSPartial<R>, rhs: @autoclosure () -> R) -> R {
     var builder = _ZeroWirePopper()
-    @_Local var second: R = R(byPoppingBits: &builder)
+    @_Local var second: R = R(_byPoppingBits: &builder)
     _if(!lhs.doFirst) {
         second = rhs()
     }

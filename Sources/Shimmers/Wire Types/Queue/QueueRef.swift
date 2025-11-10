@@ -55,28 +55,28 @@ public struct QueueRef<let count: Int, ElementRef: WireRef>: WireRef {
         traverser.visit(wire: lapped.wireID)
     }
 
-    public init(byPoppingBits builder: inout some _WirePopper) {
+    public init(_byPoppingBits builder: inout some _WirePopper) {
         storage = []
         storage.reserveCapacity(count)
         for _ in 0..<count {
-            storage.append(.init(byPoppingBits: &builder))
+            storage.append(.init(_byPoppingBits: &builder))
         }
-        readIndex = .init(byPoppingBits: &builder)
-        writeIndex = .init(byPoppingBits: &builder)
-        lapped = .init(byPoppingBits: &builder)
+        readIndex = .init(_byPoppingBits: &builder)
+        writeIndex = .init(_byPoppingBits: &builder)
+        lapped = .init(_byPoppingBits: &builder)
     }
 
-    public init(parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID]) {
+    public init(_byPartWith parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID]) {
         storage = []
         storage.reserveCapacity(count)
         for i in 0..<count {
             let name = _joinModuleName(base: parentName, suffix: "buffer_\(i)")
-            let element = ElementRef(parentName: name, body: body)
+            let element = ElementRef(_byPartWith: name, body: body)
             storage.append(element)
         }
-        readIndex  = IntRef(parentName: _joinModuleName(base: parentName, suffix: "rptr"), body: body)
-        writeIndex = IntRef(parentName: _joinModuleName(base: parentName, suffix: "wptr"), body: body)
-        lapped = BoolRef(parentName: _joinModuleName(base: parentName, suffix: "lapped"), body: body)
+        readIndex  = IntRef(_byPartWith: _joinModuleName(base: parentName, suffix: "rptr"), body: body)
+        writeIndex = IntRef(_byPartWith: _joinModuleName(base: parentName, suffix: "wptr"), body: body)
+        lapped = BoolRef(_byPartWith: _joinModuleName(base: parentName, suffix: "lapped"), body: body)
     }
 
     public func _applyPerPart(parentName: String?, body: (_ name: String, _ part: [_WireID]) -> Void) {
@@ -94,7 +94,7 @@ public struct QueueRef<let count: Int, ElementRef: WireRef>: WireRef {
         storage.reserveCapacity(count)
         for _ in 0..<count {
             var zeroPopper = _ZeroWirePopper()
-            storage.append(.init(byPoppingBits: &zeroPopper))
+            storage.append(.init(_byPoppingBits: &zeroPopper))
         }
     }
 
@@ -134,9 +134,9 @@ public struct QueueRef<let count: Int, ElementRef: WireRef>: WireRef {
         let isEmpty = isEmpty
         // grab element
         var builder = _ZeroWirePopper()
-        var result: ElementRef = .init(byPoppingBits: &builder)
+        var result: ElementRef = .init(_byPoppingBits: &builder)
         for i in 0..<count {
-            @_Local var value: ElementRef = .init(byPoppingBits: &builder)
+            @_Local var value: ElementRef = .init(_byPoppingBits: &builder)
             _if(!isEmpty && readIndex == IntRef(i)) {
                 value = storage[i]
             }

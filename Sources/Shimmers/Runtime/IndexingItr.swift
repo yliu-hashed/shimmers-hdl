@@ -13,7 +13,7 @@ extension IndexingIterator: Wire where Elements: Wire, Elements.Index: Wire {
         return Elements.bitWidth + Elements.Index.bitWidth
     }
 
-    public init(byPoppingBits source: inout some _BitPopper) {
+    public init(_byPoppingBits source: inout some _BitPopper) {
         fatalError("IndexingIterator doesn't have a known bit-level layout")
     }
 

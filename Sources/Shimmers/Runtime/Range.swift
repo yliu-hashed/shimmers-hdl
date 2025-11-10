@@ -21,9 +21,9 @@ extension Range: Wire where Bound: Wire {
         }
     }
 
-    public init(byPoppingBits source: inout some _BitPopper) {
-        let lowerBound = Bound(byPoppingBits: &source)
-        let upperBound = Bound(byPoppingBits: &source)
+    public init(_byPoppingBits source: inout some _BitPopper) {
+        let lowerBound = Bound(_byPoppingBits: &source)
+        let upperBound = Bound(_byPoppingBits: &source)
         self = lowerBound..<upperBound
     }
 }

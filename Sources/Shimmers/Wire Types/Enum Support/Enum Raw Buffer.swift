@@ -15,7 +15,7 @@ public struct _EnumRawBuffer: Sendable {
 
     public func obtain<W: WireRef>(_ type: W.Type, at index: Int = 0) -> W {
         var popper = _ArrayWirePopper(array: wires, startIndex: index)
-        return .init(byPoppingBits: &popper)
+        return .init(_byPoppingBits: &popper)
     }
 
     public mutating func change<W: WireRef>(to value: W, at index: Int = 0) {
@@ -25,7 +25,7 @@ public struct _EnumRawBuffer: Sendable {
         }
     }
 
-    public init(byPoppingBits popper: inout some _WirePopper, length: Int) {
+    public init(_byPoppingBits popper: inout some _WirePopper, length: Int) {
         wires = [_WireID](repeating: false, count: length)
         for i in 0..<length {
             wires[i] = popper.pop()
@@ -38,7 +38,7 @@ public struct _EnumRawBuffer: Sendable {
         }
     }
 
-    public init(parentName: String?, body: (String, Int) -> [_WireID], length: Int) {
+    public init(_byPartWith parentName: String?, body: (String, Int) -> [_WireID], length: Int) {
         let name = _joinModuleName(base: parentName, suffix: "content", preferBase: true)
         wires = body(name, length)
     }
@@ -54,6 +54,6 @@ public struct _EnumRawBuffer: Sendable {
             offset += type._bitWidth
         }
         var popper = _ArrayWirePopper(array: wires, startIndex: offset)
-        return types[index].init(byPoppingBits: &popper)
+        return types[index].init(_byPoppingBits: &popper)
     }
 }

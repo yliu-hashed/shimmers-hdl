@@ -91,7 +91,7 @@ public extension SignedIntegerRef where Self: FixedWidthIntegerRef {
 
     static var min: Self {
         var builder = _NegativeOneWirePopper(width: Self._bitWidth)
-        return Self(byPoppingBits: &builder)
+        return Self(_byPoppingBits: &builder)
     }
 
     @inlinable

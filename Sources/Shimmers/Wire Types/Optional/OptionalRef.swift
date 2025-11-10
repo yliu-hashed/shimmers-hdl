@@ -34,16 +34,16 @@ public struct OptionalRef<WrappedRef: WireRef>: WireRef, ExpressibleByNilLiteral
         wrapped._traverse(using: &traverser)
     }
 
-    public init(byPoppingBits builder: inout some _WirePopper) {
-        isValid = BoolRef(byPoppingBits: &builder)
-        wrapped = WrappedRef(byPoppingBits: &builder)
+    public init(_byPoppingBits builder: inout some _WirePopper) {
+        isValid = BoolRef(_byPoppingBits: &builder)
+        wrapped = WrappedRef(_byPoppingBits: &builder)
     }
 
-    public init(parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID]) {
+    public init(_byPartWith parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID]) {
         let validName = _joinModuleName(base: parentName, suffix: "valid")
         let wrappedName = _joinModuleName(base: parentName, suffix: "value")
-        isValid = BoolRef(parentName: validName, body: body)
-        wrapped = WrappedRef(parentName: wrappedName, body: body)
+        isValid = BoolRef(_byPartWith: validName, body: body)
+        wrapped = WrappedRef(_byPartWith: wrappedName, body: body)
     }
 
     public func _applyPerPart(parentName: String?, body: (_ name: String, _ part: [_WireID]) -> Void) {
@@ -54,7 +54,7 @@ public struct OptionalRef<WrappedRef: WireRef>: WireRef, ExpressibleByNilLiteral
     public init(nilLiteral: Void) {
         isValid = false
         var builder = _ZeroWirePopper()
-        wrapped = .init(byPoppingBits: &builder)
+        wrapped = .init(_byPoppingBits: &builder)
     }
 
     public var _unchecked_unwraped: WrappedRef {

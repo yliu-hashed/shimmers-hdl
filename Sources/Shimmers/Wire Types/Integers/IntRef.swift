@@ -61,7 +61,7 @@ public struct _SIntRefTemplate<let __bitWidth: Int>: SignedIntegerRef, _IntegerR
         self.wireIDs = wireIDs
     }
 
-    public init(byPoppingBits builder: inout some _WirePopper) {
+    public init(_byPoppingBits builder: inout some _WirePopper) {
         self.wireIDs = (0..<Self._bitWidth).map { _ in builder.pop() }
     }
 }
@@ -103,7 +103,7 @@ public struct _UIntRefTemplate<let __bitWidth: Int>: UnsignedIntegerRef, _Intege
         self.wireIDs = wireIDs
     }
 
-    public init(byPoppingBits builder: inout some _WirePopper) {
+    public init(_byPoppingBits builder: inout some _WirePopper) {
         self.wireIDs = (0..<Self._bitWidth).map { _ in builder.pop() }
     }
 }

@@ -131,7 +131,7 @@ extension _SynthScope {
     internal func getVirtual<Ref: WireRef>(id: UInt32) -> Ref {
         guard !didEncounteredErrors() else {
             var popper = _ZeroWirePopper()
-            return Ref(byPoppingBits: &popper)
+            return Ref(_byPoppingBits: &popper)
         }
         guard let wires = currFrame.obtainVirtual(id: id) else { fatalError() }
         return Ref(from: wires)

@@ -7,7 +7,7 @@
 //
 
 /// Construct wire representing a group of values using structs and enums.
-@attached(extension, conformances: Shimmers.Wire, names: named(bitWidth), named(_traverse(using:)), named(init(byPoppingBits:)))
+@attached(extension, conformances: Shimmers.Wire, names: named(bitWidth), named(_traverse(using:)), named(init(_byPoppingBits:)))
 @attached(peer, names: suffixed(Ref))
 public macro HardwareWire(
     flatten: Bool = false

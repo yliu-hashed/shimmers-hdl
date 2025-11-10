@@ -41,7 +41,7 @@ func buildWireBitInit(
 ) -> DeclSyntax {
     var expr: [CodeBlockItemSyntax.Item] = []
     for member in members {
-        expr.append(.expr("self.\(member.name) = .init(byPoppingBits: &builder)"))
+        expr.append(.expr("self.\(member.name) = .init(_byPoppingBits: &builder)"))
     }
-    return "init(byPoppingBits builder: inout some _BitPopper) {\(expr.buildList())}"
+    return "init(_byPoppingBits builder: inout some _BitPopper) {\(expr.buildList())}"
 }

@@ -62,7 +62,7 @@ extension _SynthScope {
         var mutatedArgs: [any WireRef] = []
         for info in portInfos {
             guard info.shape.isMutable else { continue }
-            let value = info.shape.type.init(parentName: naming.outArgPrefix + info.shape.name) { name, bitWidth in
+            let value = info.shape.type.init(_byPartWith: naming.outArgPrefix + info.shape.name) { name, bitWidth in
                 module.addOutput(name: name, width: bitWidth)
             }
             mutatedArgs.append(value)
@@ -70,7 +70,7 @@ extension _SynthScope {
 
         let retValue: (any WireRef)?
         if let returnType = returnType {
-            retValue = returnType.init(parentName: naming.outRetName) { name, bitWidth in
+            retValue = returnType.init(_byPartWith: naming.outRetName) { name, bitWidth in
                 module.addOutput(name: name, width: bitWidth)
             }
         } else {

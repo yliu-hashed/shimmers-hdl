@@ -29,9 +29,9 @@ public struct RangeRef<BoundRef: ComparableRef>: RangeExpressionRef {
         self.upperBound = upperBound
     }
 
-    public init(byPoppingBits builder: inout some _WirePopper) {
-        lowerBound = BoundRef(byPoppingBits: &builder)
-        upperBound = BoundRef(byPoppingBits: &builder)
+    public init(_byPoppingBits builder: inout some _WirePopper) {
+        lowerBound = BoundRef(_byPoppingBits: &builder)
+        upperBound = BoundRef(_byPoppingBits: &builder)
     }
 
     @inlinable

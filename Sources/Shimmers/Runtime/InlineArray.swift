@@ -26,9 +26,9 @@ extension InlineArray: Wire where Element: Wire {
         }
     }
 
-    public init(byPoppingBits source: inout some _BitPopper) {
+    public init(_byPoppingBits source: inout some _BitPopper) {
         self.init { index in
-            return .init(byPoppingBits: &source)
+            return .init(_byPoppingBits: &source)
         }
     }
 

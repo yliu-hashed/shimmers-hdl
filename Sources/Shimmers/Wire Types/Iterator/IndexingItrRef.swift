@@ -40,9 +40,9 @@ public struct IndexingIteratorRef<ElementsRef: CollectionRef>: IteratorProtocolR
         self.collectionRef = collectionRef
     }
 
-    public init(byPoppingBits builder: inout some _WirePopper) {
-        indexRef = .init(byPoppingBits: &builder)
-        collectionRef = .init(byPoppingBits: &builder)
+    public init(_byPoppingBits builder: inout some _WirePopper) {
+        indexRef = .init(_byPoppingBits: &builder)
+        collectionRef = .init(_byPoppingBits: &builder)
     }
 
     public mutating func next() -> OptionalRef<ElementRef> {

@@ -26,20 +26,20 @@ public struct InlineArrayRef<let count: Int, ElementRef: WireRef>: WireRef {
         }
     }
 
-    public init(byPoppingBits builder: inout some _WirePopper) {
+    public init(_byPoppingBits builder: inout some _WirePopper) {
         storage = []
         storage.reserveCapacity(count)
         for _ in 0..<count {
-            storage.append(ElementRef(byPoppingBits: &builder))
+            storage.append(ElementRef(_byPoppingBits: &builder))
         }
     }
 
-    public init(parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID]) {
+    public init(_byPartWith parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID]) {
         storage = []
         storage.reserveCapacity(count)
         for i in 0..<count {
             let name = _joinModuleName(base: parentName, suffix: "\(i)")
-            let element = ElementRef(parentName: name, body: body)
+            let element = ElementRef(_byPartWith: name, body: body)
             storage.append(element)
         }
     }

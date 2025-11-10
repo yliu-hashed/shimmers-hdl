@@ -58,17 +58,17 @@ public struct Queue<let count: Int, Element: Wire>: Wire {
         traverser.visit(bit: lapped)
     }
 
-    public init(byPoppingBits builder: inout some _BitPopper) {
+    public init(_byPoppingBits builder: inout some _BitPopper) {
         var storage: [Element] = []
         storage.reserveCapacity(count)
         for _ in 0..<count {
-            storage.append(.init(byPoppingBits: &builder))
+            storage.append(.init(_byPoppingBits: &builder))
         }
         self.storage = storage
 
-        readIndex = .init(byPoppingBits: &builder)
-        writeIndex = .init(byPoppingBits: &builder)
-        lapped = .init(byPoppingBits: &builder)
+        readIndex = .init(_byPoppingBits: &builder)
+        writeIndex = .init(_byPoppingBits: &builder)
+        lapped = .init(_byPoppingBits: &builder)
     }
 
     public var isEmpty: Bool {

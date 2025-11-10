@@ -23,5 +23,5 @@ public func _enum_unpack<each T: Wire>(_ types: repeat (each T).Type, from poppe
         total += width
     }
     defer { _ = popper.pop(count: length - total) }
-    return (repeat (each T).init(byPoppingBits: &popper))
+    return (repeat (each T).init(_byPoppingBits: &popper))
 }

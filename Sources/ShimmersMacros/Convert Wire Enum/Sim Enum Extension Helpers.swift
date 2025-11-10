@@ -103,7 +103,7 @@ func buildWireBitInit(
         items.append(.decl("let contentBitWidth = Self.\(contentBitWidthName)"))
     }
 
-    items.append(.decl("let kind: UIntN<\(raw: kindBitWidth)> = .init(byPoppingBits: &builder)"))
+    items.append(.decl("let kind: UIntN<\(raw: kindBitWidth)> = .init(_byPoppingBits: &builder)"))
 
     var switchCases: [SwitchCaseSyntax] = []
     for (index, caseRep) in caseReps.enumerated() {
@@ -144,5 +144,5 @@ func buildWireBitInit(
 
     items.append(.stmt("switch kind {\(switchCases.buildList())}"))
 
-    return "init(byPoppingBits builder: inout some _BitPopper) {\(items.buildList())}"
+    return "init(_byPoppingBits builder: inout some _BitPopper) {\(items.buildList())}"
 }

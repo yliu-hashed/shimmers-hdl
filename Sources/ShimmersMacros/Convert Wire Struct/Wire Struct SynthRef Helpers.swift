@@ -38,9 +38,9 @@ func buildRefBitInit(
 ) -> DeclSyntax {
     var items: [CodeBlockItemSyntax.Item] = []
     for member in members {
-        items.append(.expr("self.\(member.name) = .init(byPoppingBits: &builder)"))
+        items.append(.expr("self.\(member.name) = .init(_byPoppingBits: &builder)"))
     }
-    return "init(byPoppingBits builder: inout some _WirePopper) {\(items.buildList())}"
+    return "init(_byPoppingBits builder: inout some _WirePopper) {\(items.buildList())}"
 }
 
 func buildRefPortInit(
@@ -50,9 +50,9 @@ func buildRefPortInit(
     var items: [CodeBlockItemSyntax.Item] = []
     for member in members {
         let name: ExprSyntax = "_joinModuleName(base: parentName, suffix: \"\(member.name)\")"
-        items.append(.expr("self.\(member.name) = .init(parentName: \(name), body: body)"))
+        items.append(.expr("self.\(member.name) = .init(_byPartWith: \(name), body: body)"))
     }
-    return "init(parentName: String?, body: (String, Int) -> [_WireID]) {\(items.buildList())}"
+    return "init(_byPartWith parentName: String?, body: (String, Int) -> [_WireID]) {\(items.buildList())}"
 }
 
 func buildRefPortApplication(

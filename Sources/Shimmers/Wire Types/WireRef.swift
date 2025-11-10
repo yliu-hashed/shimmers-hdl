@@ -13,13 +13,13 @@ public protocol WireRef: Sendable {
 
     // bitwise initialize and traversal
 
-    init(byPoppingBits: inout some _WirePopper)
+    init(_byPoppingBits: inout some _WirePopper)
     func _getBit(at index: Int) -> _WireID
     func _traverse(using traverser: inout some _WireTraverser)
 
     // hiearchical initialize and traversal
 
-    init(parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID])
+    init(_byPartWith parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID])
     func _applyPerPart(parentName: String?, body: (_ name: String, _ part: [_WireID]) -> Void)
 
     // comparison
@@ -78,11 +78,11 @@ public extension WireRef {
     @usableFromInline
     internal init(from arr: consuming [_WireID]) {
         var builder = _ArrayWirePopper(array: arr)
-        self.init(byPoppingBits: &builder)
+        self.init(_byPoppingBits: &builder)
     }
 
-    init(byPortMapping scope: isolated _SynthScope, parentName: String?) {
-        self.init(parentName: parentName) { name, bitWidth in
+    internal init(byPortMapping scope: isolated _SynthScope, parentName: String?) {
+        self.init(_byPartWith: parentName) { name, bitWidth in
             scope.addInput(name: name, bitWidth: bitWidth)
         }
     }
@@ -93,7 +93,7 @@ public extension WireRef {
         }
     }
 
-    init(parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID]) {
+    init(_byPartWith parentName: String?, body: (_ name: String, _ bitWidth: Int) -> [_WireID]) {
         let wires = body(parentName ?? "value", Self._bitWidth)
         self = .init(from: wires)
     }

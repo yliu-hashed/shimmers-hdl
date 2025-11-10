@@ -12,7 +12,7 @@ extension Bool: Wire {
     @inlinable
     public static var bitWidth: Int { 1 }
 
-    public init(byPoppingBits source: inout some _BitPopper) {
+    public init(_byPoppingBits source: inout some _BitPopper) {
         self = source.pop()
     }
 

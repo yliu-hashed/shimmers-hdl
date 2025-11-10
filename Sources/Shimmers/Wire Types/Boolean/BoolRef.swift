@@ -44,7 +44,7 @@ public struct BoolRef: WireRef, ExpressibleByBooleanLiteral {
     }
 
     @inlinable
-    public init(byPoppingBits builder: inout some _WirePopper) {
+    public init(_byPoppingBits builder: inout some _WirePopper) {
         self.wireID = builder.pop()
     }
 }

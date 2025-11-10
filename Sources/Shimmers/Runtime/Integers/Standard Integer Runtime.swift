@@ -51,7 +51,7 @@ extension _StrictSInt {
         }
     }
 
-    public init(byPoppingBits source: inout some _BitPopper) {
+    public init(_byPoppingBits source: inout some _BitPopper) {
         var mag: Magnitude = 0
         let high: Magnitude = 1 << (Self.bitWidth - 1)
         for _ in 0..<Self.bitWidth {
@@ -77,7 +77,7 @@ extension _StrictUInt {
         }
     }
 
-    public init(byPoppingBits source: inout some _BitPopper) {
+    public init(_byPoppingBits source: inout some _BitPopper) {
         var mag: Magnitude = 0
         let high: Magnitude = 1 << (Self.bitWidth - 1)
         for _ in 0..<Self.bitWidth {

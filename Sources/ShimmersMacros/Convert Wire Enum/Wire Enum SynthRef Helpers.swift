@@ -62,11 +62,11 @@ func buildRefBitInit(
     in context: some MacroExpansionContext
 ) -> DeclSyntax {
     var items: [CodeBlockItemSyntax.Item] = []
-    items.append(.expr("self.$kind = .init(byPoppingBits: &builder)"))
+    items.append(.expr("self.$kind = .init(_byPoppingBits: &builder)"))
     if let contentBitWidthName = contentBitWidthName {
-        items.append(.expr("self.$payload = .init(byPoppingBits: &builder, length: Self.\(contentBitWidthName))"))
+        items.append(.expr("self.$payload = .init(_byPoppingBits: &builder, length: Self.\(contentBitWidthName))"))
     }
-    return "init(byPoppingBits builder: inout some _WirePopper) {\(items.buildList())}"
+    return "init(_byPoppingBits builder: inout some _WirePopper) {\(items.buildList())}"
 }
 
 func buildRefPortInit(
@@ -76,12 +76,12 @@ func buildRefPortInit(
 ) -> DeclSyntax {
     var items: [CodeBlockItemSyntax.Item] = []
     items.append(.decl("let kindName = _joinModuleName(base: parentName, suffix: \"kind\")"))
-    items.append(.expr("self.$kind = .init(parentName: kindName, body: body)"))
+    items.append(.expr("self.$kind = .init(_byPartWith: kindName, body: body)"))
     if let contentBitWidthName = contentBitWidthName {
         items.append(.decl("let contentName = _joinModuleName(base: parentName, suffix: \"payload\")"))
-        items.append(.expr("self.$payload = .init(parentName: contentName, body: body, length: Self.\(contentBitWidthName))"))
+        items.append(.expr("self.$payload = .init(_byPartWith: contentName, body: body, length: Self.\(contentBitWidthName))"))
     }
-    return "init(parentName: String?, body: (String, Int) -> [_WireID]) {\(items.buildList())}"
+    return "init(_byPartWith parentName: String?, body: (String, Int) -> [_WireID]) {\(items.buildList())}"
 }
 
 func buildRefPortApplication(
