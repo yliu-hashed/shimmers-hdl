@@ -67,11 +67,20 @@ extension _SynthScope {
 
         let debugLoc = debugLoc ?? debugRecorder.lastDebugLoc ?? .unknown
 
+        guard let kissatURL = kissatURL else {
+            let debugFrames = debugRecorder.simpleFrames()
+            messageManager.add(
+                at: debugLoc, in: debugFrames, type: .error,
+                "Unable to unroll loops. Kissat binary not found."
+            )
+            return false
+        }
+
         // emit and solve the sat problem
         let problem = cnfBuilder.emitProblemCNF(newClauseList: [[wireID]])
         let (result, _, duration) = proveKissat(
             problem: problem,
-            solverURL: kissatURL!,
+            solverURL: kissatURL,
             timeout: Self.proveLoopRuntimeLimit,
             priority: .default,
             needModel: false
