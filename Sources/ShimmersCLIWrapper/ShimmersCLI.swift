@@ -62,6 +62,17 @@ public struct ShimmersSynthCommandBase<Provider: GeneratorsDriverCommand>: Async
         }
     }
 
+    public nonisolated enum CommandError: Error, CustomStringConvertible {
+        case errorsEncountered(count: Int)
+
+        public var description: String {
+            switch self {
+            case .errorsEncountered(count: let count):
+                return "Encountered \(count) errors."
+            }
+        }
+    }
+
     public func run() async throws {
         let modules = Provider.providingModules
 
@@ -108,5 +119,11 @@ public struct ShimmersSynthCommandBase<Provider: GeneratorsDriverCommand>: Async
         }
 
         await driver.waitForAll()
+
+        let count = await printer.errorCount
+
+        if count > 0 {
+            throw CommandError.errorsEncountered(count: count)
+        }
     }
 }

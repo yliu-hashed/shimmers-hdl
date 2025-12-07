@@ -28,9 +28,10 @@ func setDefaultColor() {
     print("\u{001B}[0;0m", terminator: "")
 }
 
+@MainActor
 protocol ProgressPrinter: Sendable {
-    @MainActor
     func update(of notification: SynthDriver.Notification)
+    var errorCount: Int { get }
 }
 
 func makePrinter() -> any ProgressPrinter {
@@ -44,6 +45,8 @@ func makePrinter() -> any ProgressPrinter {
 final class BasicPrinter: ProgressPrinter {
     var moduleCount: Int = 0
     var finishedCount: Int = 0
+    var errorCount: Int = 0
+
     func update(of notification: SynthDriver.Notification) {
         switch notification {
         case .begin(let name):
@@ -53,6 +56,7 @@ final class BasicPrinter: ProgressPrinter {
             finishedCount += 1
             print("[\(finishedCount)/\(moduleCount)]: FINISHED \(name)")
             for message in messages {
+                if message.type == .error { errorCount += 1 }
                 print("  \(message)")
                 printMessageStack(of: message)
             }
@@ -64,6 +68,8 @@ final class BasicPrinter: ProgressPrinter {
 final class FancyPrinter: ProgressPrinter {
     var finishedCount: Int = 0
     var workingModuleList: [String] = []
+    var errorCount: Int = 0
+
     func update(of notification: SynthDriver.Notification) {
         switch notification {
         case .begin(let name):
@@ -73,6 +79,10 @@ final class FancyPrinter: ProgressPrinter {
         case .done(let name, let messages):
             // retract each printed working modules
             for _ in 0..<workingModuleList.count { eraseLine() }
+            // check errors
+            for message in messages where message.type == .error {
+                errorCount += 1
+            }
             // print finished module
             printDoneModule(name: name, index: finishedCount + 1, messages: messages)
             finishedCount += 1
