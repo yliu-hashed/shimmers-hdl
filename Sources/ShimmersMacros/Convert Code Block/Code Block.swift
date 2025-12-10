@@ -25,7 +25,7 @@ func convertFullCodeList(
 
     var items: [CodeBlockItemSyntax.Item] = []
 
-    items.append(.expr("let _frame = _pushDebugFrame(file: \(loc.entry?.file), line: \(loc.entry?.line), function: \"\(raw: loc.name)\")"))
+    items.append(.decl("let _frame = _pushDebugFrame(file: \(loc.entry?.file), line: \(loc.entry?.line), function: \"\(raw: loc.name)\")"))
     items.append(.expr("_ = _frame"))
     items.append(.stmt("defer { _popDebugFrame() }"))
 
