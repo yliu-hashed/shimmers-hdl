@@ -75,6 +75,10 @@ public struct OptionalRef<WrappedRef: WireRef>: WireRef, ExpressibleByNilLiteral
     public static func some(_ value: WrappedRef) -> Self {
         return .init(wrapped: value)
     }
+
+    public static var none: Self {
+        return nil
+    }
 }
 
 extension OptionalRef: EquatableRef where WrappedRef: EquatableRef {

@@ -6,37 +6,23 @@
 // SPDX-License-Identifier: MPL-2.0
 //
 
-//public enum OptionalPromoteMode {
-//    case normal
-//}
-//
-//public protocol SomeOptionalSynthRef: WireRef {
-//    associatedtype DeepWrappedRef: WireRef
-//}
-//
-//extension WireRef {
-//    public subscript (_p mode: OptionalPromoteMode) -> Self {
-//        get {
-//            return self
-//        }
-//        set {
-//            self = newValue
-//        }
-//    }
-//
-//    public subscript (_p mode: OptionalPromoteMode) -> OptionalSynthRef<Self> {
-//        get {
-//            let scope = _ScopeControl.currentScope!
-//            return .init(validID: 1, wrapped: self, in: scope)
-//        }
-//    }
-//}
 
 public extension OptionalRef {
     func _chain<T: WireRef>(_ body: (WrappedRef) -> T) -> OptionalRef<T> {
-        @_Local var result: OptionalRef<T>
+        @_Local var result: OptionalRef<T> = .none
         _if(_isValid) {
             result = .some(body(wrapped))
+        }
+        return result
+    }
+
+    func _chain<T: WireRef>(_ body: (WrappedRef) -> OptionalRef<T>) -> OptionalRef<T> {
+        @_Local var result: OptionalRef<T> = .none
+        _if(_isValid) {
+            let value = body(wrapped)
+            _if(value._isValid) {
+                result = .some(value.wrapped)
+            }
         }
         return result
     }
