@@ -12,12 +12,20 @@ import SwiftDiagnostics
 
 extension Rewriter {
     func convertOptionalChaining(on expr: ExprSyntax) -> ExprSyntax {
-        let (expr, root) = helper(on: expr, newRootName: "root")
-        if let root = root {
-            return "\(root)._chain({ root in \(expr) })"
-        } else {
-            return expr
+        var r: ExprSyntax? = expr
+        var list: [ExprSyntax] = []
+        while let root = r {
+            let (expr, root) = helper(on: root, newRootName: "_root")
+            r = root
+            list.append(expr)
         }
+
+        var outer = list.first!
+        for item in list.dropFirst() {
+            outer = "\(item)._chain({ _root in \(outer) })"
+        }
+
+        return outer
     }
 
     private func helper(on expr: ExprSyntax, newRootName: String) -> (expr: ExprSyntax, root: ExprSyntax?) {
