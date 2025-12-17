@@ -38,7 +38,7 @@ fileprivate struct SignedDivider {
     )
 )
 struct IntegerDivisionTestSuite {
-    @Test func division_unsigned() async throws {
+    @Test func division_unsigned() async {
         let network = await dumpSimpleNetwork(of: UnsignedDividerRef.div)
 
         func sim(_ a: UInt8, _ b: UInt8) -> (result: UInt8, overflow: Bool) {
@@ -62,7 +62,7 @@ struct IntegerDivisionTestSuite {
         }
     }
 
-    @Test func division_signed() async throws {
+    @Test func division_signed() async {
         let network = await dumpSimpleNetwork(of: SignedDividerRef.div)
 
         func sim(_ a: Int8, _ b: Int8) -> (result: Int8, overflow: Bool) {

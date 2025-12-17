@@ -48,7 +48,7 @@ fileprivate struct SignedAdder {
     )
 )
 struct IntegerAdditionSubtractionTestSuite {
-    @Test func addition_unsigned() async throws {
+    @Test func addition_unsigned() async {
         let network = await dumpSimpleNetwork(of: UnsignedAdderRef.add)
 
         func sim(_ a: UInt8, _ b: UInt8) -> (result: UInt8, overflow: Bool) {
@@ -72,7 +72,7 @@ struct IntegerAdditionSubtractionTestSuite {
         }
     }
 
-    @Test func subtraction_unsigned() async throws {
+    @Test func subtraction_unsigned() async {
         let network = await dumpSimpleNetwork(of: UnsignedAdderRef.sub)
 
         func sim(_ a: UInt8, _ b: UInt8) -> (result: UInt8, overflow: Bool) {
@@ -96,7 +96,7 @@ struct IntegerAdditionSubtractionTestSuite {
         }
     }
 
-    @Test func addition_signed() async throws {
+    @Test func addition_signed() async {
         let network = await dumpSimpleNetwork(of: SignedAdderRef.add)
 
         func sim(_ a: Int8, _ b: Int8) -> (result: Int8, overflow: Bool) {
@@ -120,7 +120,7 @@ struct IntegerAdditionSubtractionTestSuite {
         }
     }
 
-    @Test func subtraction_signed() async throws {
+    @Test func subtraction_signed() async {
         let network = await dumpSimpleNetwork(of: SignedAdderRef.sub)
 
         func sim(_ a: Int8, _ b: Int8) -> (result: Int8, overflow: Bool) {

@@ -34,7 +34,7 @@ fileprivate struct IntegerMagnitude {
     )
 )
 struct IntegerSignAndMagnitudeTestSuite {
-    @Test func sign() async throws {
+    @Test func sign() async {
         let network = await dumpSimpleNetwork(of: IntegerSignRef.signum)
 
         func sim(_ value: Int8) -> Int8 {
@@ -52,7 +52,7 @@ struct IntegerSignAndMagnitudeTestSuite {
         }
     }
 
-    @Test func magnitude() async throws {
+    @Test func magnitude() async {
         let network = await dumpSimpleNetwork(of: IntegerMagnitudeRef.magnitude)
 
         func sim(_ value: Int8) -> UInt8 {

@@ -25,7 +25,7 @@ fileprivate struct BooleanGates {
     )
 )
 struct BooleanGatesTestSuite {
-    @Test func basic() async throws {
+    @Test func basic() async {
         let network = await dumpSimpleNetwork(of: BooleanGatesRef.basic)
 
         func sim(_ a: Bool, _ b: Bool, _ c: Bool, _ d: Bool) -> Bool {

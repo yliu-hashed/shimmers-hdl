@@ -42,7 +42,7 @@ fileprivate struct IntegerConversionTruncatingToSigned {
     )
 )
 struct IntegerConversionTruncatingTestSuite {
-    @Test func unsigned_from_trunc_unsigned() async throws {
+    @Test func unsigned_from_trunc_unsigned() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionTruncatingToSignedRef.fromUnsigned)
 
         func sim(_ a: UInt16) -> UInt8 {
@@ -60,7 +60,7 @@ struct IntegerConversionTruncatingTestSuite {
         }
     }
 
-    @Test func unsigned_from_trunc_signed() async throws {
+    @Test func unsigned_from_trunc_signed() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionTruncatingToSignedRef.fromSigned)
 
         func sim(_ a: Int16) -> UInt8 {
@@ -78,7 +78,7 @@ struct IntegerConversionTruncatingTestSuite {
         }
     }
 
-    @Test func signed_from_trunc_unsigned() async throws {
+    @Test func signed_from_trunc_unsigned() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionTruncatingToSignedRef.fromUnsigned)
 
         func sim(_ a: UInt16) -> Int8 {
@@ -96,7 +96,7 @@ struct IntegerConversionTruncatingTestSuite {
         }
     }
 
-    @Test func signed_from_trunc_signed() async throws {
+    @Test func signed_from_trunc_signed() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionTruncatingToSignedRef.fromSigned)
 
         func sim(_ a: Int16) -> Int8 {

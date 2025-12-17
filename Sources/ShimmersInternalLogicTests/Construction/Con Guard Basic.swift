@@ -55,7 +55,7 @@ fileprivate struct GuardBasic {
     )
 )
 struct ConstructionGuardControlTestSuite {
-    @Test func one_guard() async throws {
+    @Test func one_guard() async {
         let network = await dumpSimpleNetwork(of: GuardBasicRef.work_one_guard)
 
         func sim(_ x: UInt64) -> (a: UInt64, b: UInt64, c: UInt64, d: UInt64) {
@@ -75,7 +75,7 @@ struct ConstructionGuardControlTestSuite {
         #expect(sim(1) == (1, 0, 1, 0))
     }
 
-    @Test func two_guard() async throws {
+    @Test func two_guard() async {
         let network = await dumpSimpleNetwork(of: GuardBasicRef.work_two_guard)
 
         func sim(_ x: UInt64, _ y: UInt64) -> (a: UInt64, b: UInt64, c: UInt64, d: UInt64) {

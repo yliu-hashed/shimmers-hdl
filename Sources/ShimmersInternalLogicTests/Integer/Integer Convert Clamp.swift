@@ -42,7 +42,7 @@ fileprivate struct IntegerConversionClampingToSigned {
     )
 )
 struct IntegerConversionClampingTestSuite {
-    @Test func unsigned_from_clamping_unsigned() async throws {
+    @Test func unsigned_from_clamping_unsigned() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionClampingToUnsignedRef.fromUnsigned)
 
         func sim(_ a: UInt16) -> UInt8 {
@@ -60,7 +60,7 @@ struct IntegerConversionClampingTestSuite {
         }
     }
 
-    @Test func unsigned_from_clamping_signed() async throws {
+    @Test func unsigned_from_clamping_signed() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionClampingToUnsignedRef.fromSigned)
 
         func sim(_ a: Int16) -> UInt8 {
@@ -78,7 +78,7 @@ struct IntegerConversionClampingTestSuite {
         }
     }
 
-    @Test func signed_from_clamping_unsigned() async throws {
+    @Test func signed_from_clamping_unsigned() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionClampingToSignedRef.fromUnsigned)
 
         func sim(_ a: UInt16) -> Int8 {
@@ -96,7 +96,7 @@ struct IntegerConversionClampingTestSuite {
         }
     }
 
-    @Test func signed_from_clamping_signed() async throws {
+    @Test func signed_from_clamping_signed() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionClampingToSignedRef.fromSigned)
 
         func sim(_ a: Int16) -> Int8 {

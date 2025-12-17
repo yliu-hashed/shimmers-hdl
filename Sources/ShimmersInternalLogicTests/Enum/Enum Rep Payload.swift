@@ -45,11 +45,11 @@ fileprivate struct PayloadEnum4Cases {
     )
 )
 struct EnumPayloadTestSuite {
-    @Test func case_bitLength() async throws {
+    @Test func case_bitLength() async {
         #expect(PayloadEnum4Ref._bitWidth == 34)
     }
 
-    @Test func case_create_simple() async throws {
+    @Test func case_create_simple() async {
         let network = await dumpSimpleNetwork(of: PayloadEnum4CasesRef.make_a)
 
         func sim() -> (kind: UInt64, payload: UInt64) {
@@ -61,7 +61,7 @@ struct EnumPayloadTestSuite {
         #expect(sim() == (0, 0x00_0000_00))
     }
 
-    @Test func case_create_long1() async throws {
+    @Test func case_create_long1() async {
         let network = await dumpSimpleNetwork(of: PayloadEnum4CasesRef.make_b)
 
         func sim(_ a: UInt64) -> (kind: UInt64, payload: UInt64) {
@@ -79,7 +79,7 @@ struct EnumPayloadTestSuite {
         #expect(sim(0xFF) == (1, 0x00_0000_FF))
     }
 
-    @Test func case_create_long2() async throws {
+    @Test func case_create_long2() async {
         let network = await dumpSimpleNetwork(of: PayloadEnum4CasesRef.make_c)
 
         func sim(_ a: UInt64, _ b: UInt64) -> (kind: UInt64, payload: UInt64) {
@@ -99,7 +99,7 @@ struct EnumPayloadTestSuite {
         #expect(sim(0xFF, 0xFFFF) == (2, 0x00_FFFF_FF))
     }
 
-    @Test func case_create_full() async throws {
+    @Test func case_create_full() async {
         let network = await dumpSimpleNetwork(of: PayloadEnum4CasesRef.make_d)
 
         func sim(_ a: UInt64, _ b: UInt64, _ c: UInt64) -> (kind: UInt64, payload: UInt64) {

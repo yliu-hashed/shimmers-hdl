@@ -29,7 +29,7 @@ fileprivate struct Comparison {
     )
 )
 struct IntegerComparisonTestSuite {
-    @Test func multiplication_unsigned() async throws {
+    @Test func multiplication_unsigned() async {
         let network = await dumpSimpleNetwork(of: ComparisonRef.unsignedLesser)
 
         func sim(_ a: UInt8, _ b: UInt8) -> Bool {
@@ -50,7 +50,7 @@ struct IntegerComparisonTestSuite {
         }
     }
 
-    @Test func multiplication_signed() async throws {
+    @Test func multiplication_signed() async {
         let network = await dumpSimpleNetwork(of: ComparisonRef.signedLesser)
 
         func sim(_ a: Int8, _ b: Int8) -> Bool {

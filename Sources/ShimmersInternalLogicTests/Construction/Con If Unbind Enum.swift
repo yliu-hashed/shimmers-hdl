@@ -101,7 +101,7 @@ fileprivate enum UnbindEnum4 {
     )
 )
 struct ConstructionIfEnumUnbindSuite {
-    @Test func unbind_direct_1() async throws {
+    @Test func unbind_direct_1() async {
         let network = await dumpSimpleNetwork(of: UnbindEnum4Ref.unbind_direct)
 
         func sim(_ raw: UInt64) -> UInt8 {
@@ -123,7 +123,7 @@ struct ConstructionIfEnumUnbindSuite {
     }
 
     @Test(arguments: ["inside", "outside"])
-    func unbind_all_1(choice: String) async throws {
+    func unbind_all_1(choice: String) async {
         let target = switch choice {
         case "inside":
             UnbindEnum4Ref.unbind_all_1a
@@ -156,7 +156,7 @@ struct ConstructionIfEnumUnbindSuite {
         #expect(sim(0x00_0000_00_5) == 0)
     }
 
-    @Test func unbind_wildcard_1() async throws {
+    @Test func unbind_wildcard_1() async {
         let network = await dumpSimpleNetwork(of: UnbindEnum4Ref.unbind_wildcard_1a)
 
         func sim(_ raw: UInt64) -> UInt8 {
@@ -181,7 +181,7 @@ struct ConstructionIfEnumUnbindSuite {
     }
 
     @Test(arguments: ["inside", "outside"])
-    func unbind_all_3(choice: String) async throws {
+    func unbind_all_3(choice: String) async {
         let target = switch choice {
         case "inside":
             UnbindEnum4Ref.unbind_all_3a
@@ -215,7 +215,7 @@ struct ConstructionIfEnumUnbindSuite {
     }
 
     @Test(arguments: ["inside", "outside"])
-    func unbind_mixed_3(choice: String) async throws {
+    func unbind_mixed_3(choice: String) async {
         let target = switch choice {
         case "inside":
             UnbindEnum4Ref.unbind_mixed_3a
@@ -252,7 +252,7 @@ struct ConstructionIfEnumUnbindSuite {
     }
 
     @Test(arguments: ["inside", "outside"])
-    func unbind_wildcard_3(choice: String) async throws {
+    func unbind_wildcard_3(choice: String) async {
         let target = switch choice {
         case "inside":
             UnbindEnum4Ref.unbind_wildcard_3a

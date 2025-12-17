@@ -52,7 +52,7 @@ fileprivate struct OptionalChainResult {
     )
 )
 struct OptionalChainTestSuite {
-    @Test func optional_chain_1() async throws {
+    @Test func optional_chain_1() async {
         let network = await dumpSimpleNetwork(of: OptionalChainResultRef.chain1)
 
         func sim(_ value: UInt8, _ valid: Bool) -> (value: UInt8, valid: Bool) {
@@ -78,7 +78,7 @@ struct OptionalChainTestSuite {
         #expect(sim(255, false).valid == false)
     }
 
-    @Test func optional_chain_2() async throws {
+    @Test func optional_chain_2() async {
         let network = await dumpSimpleNetwork(of: OptionalChainResultRef.chain2)
 
         func sim(_ value: UInt8, _ valid1: Bool, _ valid2: Bool) -> (value: UInt8, valid: Bool) {
@@ -114,7 +114,7 @@ struct OptionalChainTestSuite {
         #expect(sim(255, false, false).valid == false)
     }
 
-    @Test func optional_chain_3() async throws {
+    @Test func optional_chain_3() async {
         let network = await dumpSimpleNetwork(of: OptionalChainResultRef.chain3)
 
         func sim(_ value: UInt8, _ valid1: Bool, _ valid2: Bool, _ valid3: Bool) -> (value: UInt8, valid: Bool) {

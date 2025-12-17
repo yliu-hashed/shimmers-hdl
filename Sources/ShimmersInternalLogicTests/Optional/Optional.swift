@@ -31,7 +31,7 @@ fileprivate struct OptionalRepresentation {
     )
 )
 struct OptionalTestSuite {
-    @Test func optional_representation() async throws {
+    @Test func optional_representation() async {
         let network = await dumpSimpleNetwork(of: OptionalRepresentationRef.basic)
 
         func sim(_ a: UInt8) -> (value: UInt8, valid: Bool) {

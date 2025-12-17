@@ -42,7 +42,7 @@ fileprivate struct SignedShift {
     )
 )
 struct IntegerShiftTestSuite {
-    @Test func shift_left_unsigned() async throws {
+    @Test func shift_left_unsigned() async {
         let network = await dumpSimpleNetwork(of: UnsignedShiftRef.left)
 
         func sim(_ a: UInt8, _ b: UInt8) -> UInt8 {
@@ -63,7 +63,7 @@ struct IntegerShiftTestSuite {
         }
     }
 
-    @Test func shift_right_unsigned() async throws {
+    @Test func shift_right_unsigned() async {
         let network = await dumpSimpleNetwork(of: UnsignedShiftRef.right)
 
         func sim(_ a: UInt8, _ b: UInt8) -> UInt8 {
@@ -84,7 +84,7 @@ struct IntegerShiftTestSuite {
         }
     }
 
-    @Test func shift_left_signed() async throws {
+    @Test func shift_left_signed() async {
         let network = await dumpSimpleNetwork(of: SignedShiftRef.left)
 
         func sim(_ a: Int8, _ b: UInt8) -> Int8 {
@@ -105,7 +105,7 @@ struct IntegerShiftTestSuite {
         }
     }
 
-    @Test func shift_right_signed() async throws {
+    @Test func shift_right_signed() async {
         let network = await dumpSimpleNetwork(of: SignedShiftRef.right)
 
         func sim(_ a: Int8, _ b: UInt8) -> Int8 {

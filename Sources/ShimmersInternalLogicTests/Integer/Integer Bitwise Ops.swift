@@ -33,7 +33,7 @@ fileprivate struct Bitwise {
     )
 )
 struct BitwiseOperationsTestSuite {
-    @Test func basic_and() async throws {
+    @Test func basic_and() async {
         let network = await dumpSimpleNetwork(of: BitwiseRef.and)
 
         func sim(_ a: UInt8, _ b: UInt8) -> UInt8 {
@@ -50,7 +50,7 @@ struct BitwiseOperationsTestSuite {
         #expect(sim(0b11001100, 0b01010101) == 0b01000100)
     }
 
-    @Test func basic_or() async throws {
+    @Test func basic_or() async {
         let network = await dumpSimpleNetwork(of: BitwiseRef.or)
 
         func sim(_ a: UInt8, _ b: UInt8) -> UInt8 {
@@ -67,7 +67,7 @@ struct BitwiseOperationsTestSuite {
         #expect(sim(0b11001100, 0b01010101) == 0b11011101)
     }
 
-    @Test func basic_xor() async throws {
+    @Test func basic_xor() async {
         let network = await dumpSimpleNetwork(of: BitwiseRef.xor)
 
         func sim(_ a: UInt8, _ b: UInt8) -> UInt8 {

@@ -38,7 +38,7 @@ fileprivate struct SignedMultiplier {
     )
 )
 struct IntegerMultiplicationTestSuite {
-    @Test func multiplication_unsigned() async throws {
+    @Test func multiplication_unsigned() async {
         let network = await dumpSimpleNetwork(of: UnsignedMultiplierRef.mul)
 
         func sim(_ a: UInt8, _ b: UInt8) -> (result: UInt8, overflow: Bool) {
@@ -62,7 +62,7 @@ struct IntegerMultiplicationTestSuite {
         }
     }
 
-    @Test func multiplication_signed() async throws {
+    @Test func multiplication_signed() async {
         let network = await dumpSimpleNetwork(of: SignedMultiplierRef.mul)
 
         func sim(_ a: Int8, _ b: Int8) -> (result: Int8, overflow: Bool) {

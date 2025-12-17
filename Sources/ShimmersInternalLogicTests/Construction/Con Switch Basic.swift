@@ -80,7 +80,7 @@ fileprivate struct SwitchBasic {
     )
 )
 struct ConstructionSwitchControlTestSuite {
-    @Test func switch_value() async throws {
+    @Test func switch_value() async {
         let network = await dumpSimpleNetwork(of: SwitchBasicRef.switch_value)
 
         func sim(_ x: UInt8) -> UInt8 {
@@ -105,7 +105,7 @@ struct ConstructionSwitchControlTestSuite {
         #expect(sim(234) == 8)
     }
 
-    @Test func switch_return() async throws {
+    @Test func switch_return() async {
         let network = await dumpSimpleNetwork(of: SwitchBasicRef.switch_return)
 
         func sim(_ x: UInt8) -> UInt8 {
@@ -125,7 +125,7 @@ struct ConstructionSwitchControlTestSuite {
         #expect(sim(234) == 8)
     }
 
-    @Test func switch_break() async throws {
+    @Test func switch_break() async {
         let network = await dumpSimpleNetwork(of: SwitchBasicRef.switch_break)
 
         func sim(_ x: UInt8) -> UInt8 {

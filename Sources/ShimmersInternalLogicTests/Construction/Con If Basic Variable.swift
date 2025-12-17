@@ -54,7 +54,7 @@ fileprivate struct IfBasicVariable {
     )
 )
 struct ConstructionIfVariableTestSuite {
-    @Test func basic() async throws {
+    @Test func basic() async {
         let network = await dumpSimpleNetwork(of: IfBasicVariableRef.work1)
 
         func sim(_ value: UInt8, _ decider: UInt8) -> UInt8 {
@@ -77,7 +77,7 @@ struct ConstructionIfVariableTestSuite {
         #expect(sim(11,90) == 123)
     }
 
-    @Test func double() async throws {
+    @Test func double() async {
         let network = await dumpSimpleNetwork(of: IfBasicVariableRef.work2)
 
         func sim(_ value: UInt8, _ decider: UInt8) -> UInt8 {
@@ -100,7 +100,7 @@ struct ConstructionIfVariableTestSuite {
         #expect(sim(11,40) ==  14)
     }
 
-    @Test func double_else() async throws {
+    @Test func double_else() async {
         let network = await dumpSimpleNetwork(of: IfBasicVariableRef.work3)
 
         func sim(_ value: UInt8, _ decider: UInt8) -> UInt8 {

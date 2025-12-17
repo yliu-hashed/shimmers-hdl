@@ -59,7 +59,7 @@ fileprivate enum UnbindEnum4 {
     )
 )
 struct ConstructionGuardEnumUnbindSuite {
-    @Test func unbind_direct() async throws {
+    @Test func unbind_direct() async {
         let network = await dumpSimpleNetwork(of: UnbindEnum4Ref.unbind_direct)
 
         func sim(_ raw: UInt64) -> UInt8 {
@@ -80,7 +80,7 @@ struct ConstructionGuardEnumUnbindSuite {
         #expect(sim(0x00_0000_00_5) == 0)
     }
 
-    @Test func unbind_identifier() async throws {
+    @Test func unbind_identifier() async {
         let network = await dumpSimpleNetwork(of: UnbindEnum4Ref.unbind_identifier)
 
         func sim(_ raw: UInt64) -> UInt8 {
@@ -104,7 +104,7 @@ struct ConstructionGuardEnumUnbindSuite {
         #expect(sim(0x00_0000_00_5) == 0)
     }
 
-    @Test func unbind_wildcard() async throws {
+    @Test func unbind_wildcard() async {
         let network = await dumpSimpleNetwork(of: UnbindEnum4Ref.unbind_wildcard)
 
         func sim(_ raw: UInt64) -> UInt8 {
@@ -128,7 +128,7 @@ struct ConstructionGuardEnumUnbindSuite {
         #expect(sim(0x00_0000_00_5) == 0)
     }
 
-    @Test func unbind_value() async throws {
+    @Test func unbind_value() async {
         let network = await dumpSimpleNetwork(of: UnbindEnum4Ref.unbind_value)
 
         func sim(_ raw: UInt64) -> UInt8 {

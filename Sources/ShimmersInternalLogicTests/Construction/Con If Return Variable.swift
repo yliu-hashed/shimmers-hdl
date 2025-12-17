@@ -56,7 +56,7 @@ fileprivate struct IfReturnVariable {
     )
 )
 struct ConstructionReturnVariableTestSuite {
-    @Test func simple_plain() async throws {
+    @Test func simple_plain() async {
         let network = await dumpSimpleNetwork(of: IfReturnVariableRef.work1)
 
         func sim(_ decider: UInt8) -> UInt8 {
@@ -76,7 +76,7 @@ struct ConstructionReturnVariableTestSuite {
         #expect(sim(6) == 222)
     }
 
-    @Test func simple_valued() async throws {
+    @Test func simple_valued() async {
         let network = await dumpSimpleNetwork(of: IfReturnVariableRef.work2)
 
         func sim(_ decider: UInt8) -> UInt8 {
@@ -99,7 +99,7 @@ struct ConstructionReturnVariableTestSuite {
         #expect(sim(9) == 123)
     }
 
-    @Test func double_valued() async throws {
+    @Test func double_valued() async {
         let network = await dumpSimpleNetwork(of: IfReturnVariableRef.work3)
 
         func sim(_ decider: UInt8) -> UInt8 {

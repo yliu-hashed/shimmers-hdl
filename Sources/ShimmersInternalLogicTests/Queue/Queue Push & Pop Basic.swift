@@ -40,7 +40,7 @@ fileprivate struct QueueBasic {
     )
 )
 struct QueueInsertRemoveTestSuite {
-    @Test func push1() async throws {
+    @Test func push1() async {
         let network = await dumpSimpleNetwork(of: QueueBasicRef.push1)
 
         func sim(_ value: UInt8) -> (pops: [UInt8?], didPush: Bool) {

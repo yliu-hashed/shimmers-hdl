@@ -40,11 +40,11 @@ fileprivate struct BasicEnum4Cases {
     )
 )
 struct EnumBasicTestSuite {
-    @Test func case_bitLength() async throws {
+    @Test func case_bitLength() async {
         #expect(BasicEnum4Ref._bitWidth == 2)
     }
 
-    @Test func case_matching() async throws {
+    @Test func case_matching() async {
         let network = await dumpSimpleNetwork(of: BasicEnum4Ref.equal)
 
         func sim(_ a: UInt64, _ b: UInt64) -> Bool {
@@ -65,7 +65,7 @@ struct EnumBasicTestSuite {
         }
     }
 
-    @Test func case_create() async throws {
+    @Test func case_create() async {
         let network = await dumpSimpleNetwork(of: BasicEnum4CasesRef.get_cases)
 
         func sim() -> (UInt64, UInt64, UInt64, UInt64) {

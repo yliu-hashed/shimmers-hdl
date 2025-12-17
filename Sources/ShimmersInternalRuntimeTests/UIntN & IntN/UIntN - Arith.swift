@@ -20,7 +20,7 @@ struct UIntNArithmeticsTestSuite {
     let refs: [UInt8   ] = [0, 1, 2, 3, 12, 16, 17, 29, 123, 127, 128, 234, 255]
     let count = 13
 
-    @Test func uIntN_add() async throws {
+    @Test func uIntN_add() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i].addingReportingOverflow(vals[j])
@@ -32,7 +32,7 @@ struct UIntNArithmeticsTestSuite {
         }
     }
 
-    @Test func uIntN_sub() async throws {
+    @Test func uIntN_sub() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i].subtractingReportingOverflow(vals[j])
@@ -44,7 +44,7 @@ struct UIntNArithmeticsTestSuite {
         }
     }
 
-    @Test func uIntN_mul() async throws {
+    @Test func uIntN_mul() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i].multipliedReportingOverflow(by: vals[j])
@@ -56,7 +56,7 @@ struct UIntNArithmeticsTestSuite {
         }
     }
 
-    @Test func uIntN_div() async throws {
+    @Test func uIntN_div() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i].dividedReportingOverflow(by: vals[j])
@@ -68,7 +68,7 @@ struct UIntNArithmeticsTestSuite {
         }
     }
 
-    @Test func uIntN_rem() async throws {
+    @Test func uIntN_rem() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i].remainderReportingOverflow(dividingBy: vals[j])

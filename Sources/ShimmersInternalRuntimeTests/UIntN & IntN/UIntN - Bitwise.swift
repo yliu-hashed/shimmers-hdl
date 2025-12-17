@@ -20,7 +20,7 @@ struct UIntNBitwiseOperationsTestSuite {
     let refs: [UInt8   ] = [0, 1, 2, 3, 12, 16, 17, 29, 123, 127, 128, 234, 255]
     let count = 13
 
-    @Test func uIntN_shift_left() async throws {
+    @Test func uIntN_shift_left() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i] << j
@@ -31,7 +31,7 @@ struct UIntNBitwiseOperationsTestSuite {
         }
     }
 
-    @Test func uIntN_shift_right() async throws {
+    @Test func uIntN_shift_right() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i] >> j
@@ -42,7 +42,7 @@ struct UIntNBitwiseOperationsTestSuite {
         }
     }
 
-    @Test func uIntN_leading_zeros() async throws {
+    @Test func uIntN_leading_zeros() async {
         for i in 0..<count {
             let result = vals[i].leadingZeroBitCount
             let truth  = refs[i].leadingZeroBitCount
@@ -51,7 +51,7 @@ struct UIntNBitwiseOperationsTestSuite {
         }
     }
 
-    @Test func uIntN_trailing_zeros() async throws {
+    @Test func uIntN_trailing_zeros() async {
         for i in 0..<count {
             let result = vals[i].trailingZeroBitCount
             let truth  = refs[i].trailingZeroBitCount
@@ -60,7 +60,7 @@ struct UIntNBitwiseOperationsTestSuite {
         }
     }
 
-    @Test func uIntN_popcount() async throws {
+    @Test func uIntN_popcount() async {
         for i in 0..<count {
             let result = vals[i].nonzeroBitCount
             let truth  = refs[i].nonzeroBitCount
@@ -69,7 +69,7 @@ struct UIntNBitwiseOperationsTestSuite {
         }
     }
 
-    @Test func uIntN_and() async throws {
+    @Test func uIntN_and() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i] & vals[i]
@@ -80,7 +80,7 @@ struct UIntNBitwiseOperationsTestSuite {
         }
     }
 
-    @Test func uIntN_or() async throws {
+    @Test func uIntN_or() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i] | vals[i]
@@ -91,7 +91,7 @@ struct UIntNBitwiseOperationsTestSuite {
         }
     }
 
-    @Test func uIntN_xor() async throws {
+    @Test func uIntN_xor() async {
         for i in 0..<count {
             for j in 0..<count {
                 let result = vals[i] ^ vals[i]

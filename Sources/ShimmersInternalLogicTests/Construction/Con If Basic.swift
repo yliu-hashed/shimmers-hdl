@@ -82,7 +82,7 @@ fileprivate struct IfBasic {
     )
 )
 struct ConstructionIfControlTestSuite {
-    @Test func one_branch() async throws {
+    @Test func one_branch() async {
         let network = await dumpSimpleNetwork(of: IfBasicRef.work_one_branch)
 
         func sim(_ x: UInt64) -> (a: UInt64, b: UInt64, c: UInt64, d: UInt64) {
@@ -102,7 +102,7 @@ struct ConstructionIfControlTestSuite {
         #expect(sim(1) == (1, 1, 1, 0))
     }
 
-    @Test func one_branch_else() async throws {
+    @Test func one_branch_else() async {
         let network = await dumpSimpleNetwork(of: IfBasicRef.work_one_branch_else)
 
         func sim(_ x: UInt64) -> (a: UInt64, b: UInt64, c: UInt64, d: UInt64) {
@@ -122,7 +122,7 @@ struct ConstructionIfControlTestSuite {
         #expect(sim(1) == (1, 1, 1, 0))
     }
 
-    @Test func one_branch_double() async throws {
+    @Test func one_branch_double() async {
         let network = await dumpSimpleNetwork(of: IfBasicRef.work_one_branch_double_cond)
 
         func sim(_ x: UInt64, _ y: UInt64) -> (a: UInt64, b: UInt64, c: UInt64, d: UInt64) {
@@ -144,7 +144,7 @@ struct ConstructionIfControlTestSuite {
         #expect(sim(1, 1) == (1, 1, 1, 0))
     }
 
-    @Test func two_branch() async throws {
+    @Test func two_branch() async {
         let network = await dumpSimpleNetwork(of: IfBasicRef.work_two_branch)
 
         func sim(_ x: UInt64, _ y: UInt64) -> (a: UInt64, b: UInt64, c: UInt64, d: UInt64) {

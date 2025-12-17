@@ -33,7 +33,7 @@ fileprivate struct BitwiseCount {
     )
 )
 struct BitwiseCountingTestSuite {
-    @Test func count_leading_zeros() async throws {
+    @Test func count_leading_zeros() async {
         let network = await dumpSimpleNetwork(of: BitwiseCountRef.leadingZero)
 
         func sim(_ value: UInt8) -> Int {
@@ -55,7 +55,7 @@ struct BitwiseCountingTestSuite {
         #expect(sim(0b00000000) == 8)
     }
 
-    @Test func count_trailing_zeros() async throws {
+    @Test func count_trailing_zeros() async {
         let network = await dumpSimpleNetwork(of: BitwiseCountRef.trailingZero)
 
         func sim(_ value: UInt8) -> Int {
@@ -77,7 +77,7 @@ struct BitwiseCountingTestSuite {
         #expect(sim(0b00000000) == 8)
     }
 
-    @Test func count_population() async throws {
+    @Test func count_population() async {
         let network = await dumpSimpleNetwork(of: BitwiseCountRef.populationCount)
 
         func sim(_ value: UInt8) -> Int {

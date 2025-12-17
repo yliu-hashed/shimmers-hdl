@@ -42,7 +42,7 @@ fileprivate struct IntegerConversionExactlyToSigned {
     )
 )
 struct IntegerConversionExactlyTestSuite {
-    @Test func unsigned_from_exactly_unsigned() async throws {
+    @Test func unsigned_from_exactly_unsigned() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionExactlyToUnsignedRef.fromUnsigned)
 
         func sim(_ a: UInt16) -> UInt8? {
@@ -62,7 +62,7 @@ struct IntegerConversionExactlyTestSuite {
         }
     }
 
-    @Test func unsigned_from_exactly_signed() async throws {
+    @Test func unsigned_from_exactly_signed() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionExactlyToUnsignedRef.fromSigned)
 
         func sim(_ a: Int16) -> UInt8? {
@@ -82,7 +82,7 @@ struct IntegerConversionExactlyTestSuite {
         }
     }
 
-    @Test func signed_from_exactly_unsigned() async throws {
+    @Test func signed_from_exactly_unsigned() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionExactlyToSignedRef.fromUnsigned)
 
         func sim(_ a: UInt16) -> Int8? {
@@ -102,7 +102,7 @@ struct IntegerConversionExactlyTestSuite {
         }
     }
 
-    @Test func signed_from_exactly_signed() async throws {
+    @Test func signed_from_exactly_signed() async {
         let network = await dumpSimpleNetwork(of: IntegerConversionExactlyToSignedRef.fromSigned)
 
         func sim(_ a: Int16) -> Int8? {

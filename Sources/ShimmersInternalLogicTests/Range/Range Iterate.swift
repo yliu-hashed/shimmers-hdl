@@ -44,7 +44,7 @@ fileprivate struct RangeIterateSeeded {
     )
 )
 struct RangeIterateTestSuite {
-    @Test func basic() async throws {
+    @Test func basic() async {
         let network = await dumpSimpleNetwork(of: RangeIterateBasicRef.range)
         func sim(_ buffer: UInt16) -> UInt16 {
             let inputs: [String: UInt64] = [
@@ -61,7 +61,7 @@ struct RangeIterateTestSuite {
         #expect(sim(0b01010101_01010101) == 0b01001010_11010101)
     }
 
-    @Test func seeded() async throws {
+    @Test func seeded() async {
         let network = await dumpSimpleNetwork(of: RangeIterateSeededRef.seeded)
         func sim(_ seed: Int8) -> Int8 {
             let inputs: [String: UInt64] = [

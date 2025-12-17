@@ -33,7 +33,7 @@ fileprivate struct TernaryOperators {
     )
 )
 struct TernaryOperatorTestSuite {
-    @Test func basic() async throws {
+    @Test func basic() async {
         let network = await dumpSimpleNetwork(of: TernaryOperatorsRef.basic)
 
         func sim(_ v: Bool, _ t: Bool, _ f: Bool) -> Bool {
@@ -56,7 +56,7 @@ struct TernaryOperatorTestSuite {
         }
     }
 
-    @Test func double1() async throws {
+    @Test func double1() async {
         let network = await dumpSimpleNetwork(of: TernaryOperatorsRef.double1)
 
         func sim(_ a: Bool, _ b: Bool, _ c: Bool, _ d: Bool, _ e: Bool) -> Bool {
@@ -85,7 +85,7 @@ struct TernaryOperatorTestSuite {
         }
     }
 
-    @Test func double2() async throws {
+    @Test func double2() async {
         let network = await dumpSimpleNetwork(of: TernaryOperatorsRef.double2)
 
         func sim(_ a: Bool, _ b: Bool, _ c: Bool, _ d: Bool, _ e: Bool) -> Bool {

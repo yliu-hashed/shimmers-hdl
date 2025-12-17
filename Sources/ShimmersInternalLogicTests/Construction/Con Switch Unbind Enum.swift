@@ -104,7 +104,7 @@ fileprivate struct SwitchEnum4Cases {
     )
 )
 struct ConstructionSwitchEnumUnbindTestSuite {
-    @Test func unbind_all() async throws {
+    @Test func unbind_all() async {
         let network = await dumpSimpleNetwork(of: SwitchEnum4CasesRef.unbind_all)
 
         func sim(_ raw: UInt64) -> UInt16 {
@@ -132,7 +132,7 @@ struct ConstructionSwitchEnumUnbindTestSuite {
         #expect(sim(0x00_0000_00_5) == 0)
     }
 
-    @Test func unbind_value() async throws {
+    @Test func unbind_value() async {
         let network = await dumpSimpleNetwork(of: SwitchEnum4CasesRef.unbind_value)
 
         func sim(_ raw: UInt64) -> UInt16 {
@@ -168,7 +168,7 @@ struct ConstructionSwitchEnumUnbindTestSuite {
         #expect(sim(0x00_0000_00_5) == 0)
     }
 
-    @Test func unbind_wildcard() async throws {
+    @Test func unbind_wildcard() async {
         let network = await dumpSimpleNetwork(of: SwitchEnum4CasesRef.unbind_wildcard)
 
         func sim(_ raw: UInt64) -> UInt16 {
@@ -199,7 +199,7 @@ struct ConstructionSwitchEnumUnbindTestSuite {
         #expect(sim(0x00_0000_00_5) == 0)
     }
 
-    @Test func unbind_mixed() async throws {
+    @Test func unbind_mixed() async {
         let network = await dumpSimpleNetwork(of: SwitchEnum4CasesRef.unbind_mixed)
 
         func sim(_ raw: UInt64) -> UInt16 {

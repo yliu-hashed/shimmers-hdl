@@ -49,7 +49,7 @@ fileprivate struct ArrayIndexSwap {
     )
 )
 struct InlineArrayAccessTestSuite {
-    @Test func index_get() async throws {
+    @Test func index_get() async {
         let network = await dumpSimpleNetwork(of: ArrayIndexGetRef.get)
 
         func sim(_ index: Int) -> UInt8 {
@@ -70,7 +70,7 @@ struct InlineArrayAccessTestSuite {
         #expect(sim(7) == 234)
     }
 
-    @Test func index_set() async throws {
+    @Test func index_set() async {
         let network = await dumpSimpleNetwork(of: ArrayIndexSetRef.set)
 
         func sim(_ index: Int, _ value: UInt8) -> [UInt8] {
@@ -96,7 +96,7 @@ struct InlineArrayAccessTestSuite {
         }
     }
 
-    @Test func index_swap() async throws {
+    @Test func index_swap() async {
         let network = await dumpSimpleNetwork(of: ArrayIndexSwapRef.swap)
 
         func sim(_ indexA: Int, _ indexB: Int) -> [UInt8] {

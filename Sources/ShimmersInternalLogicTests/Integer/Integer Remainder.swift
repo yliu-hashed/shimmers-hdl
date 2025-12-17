@@ -38,7 +38,7 @@ fileprivate struct SignedRemainder {
     )
 )
 struct IntegerRemainderTestSuite {
-    @Test func remainder_unsigned() async throws {
+    @Test func remainder_unsigned() async {
         let network = await dumpSimpleNetwork(of: UnsignedRemainderRef.rem)
 
         func sim(_ a: UInt8, _ b: UInt8) -> (result: UInt8, overflow: Bool) {
@@ -62,7 +62,7 @@ struct IntegerRemainderTestSuite {
         }
     }
 
-    @Test func remainder_signed() async throws {
+    @Test func remainder_signed() async {
         let network = await dumpSimpleNetwork(of: SignedRemainderRef.rem)
 
         func sim(_ a: Int8, _ b: Int8) -> (result: Int8, overflow: Bool) {
