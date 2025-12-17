@@ -3,8 +3,12 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
+    paths:
+      - '**.swift'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - '**.swift'
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
