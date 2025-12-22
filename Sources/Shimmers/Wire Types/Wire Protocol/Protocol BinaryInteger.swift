@@ -145,23 +145,14 @@ public extension BinaryIntegerRef {
                 result = self + Self(truncatingIfNeeded: n)
             }
         } else {
-            //            let isNegative = n < (0 as IntRef)
-            //            __with(isNegative) {
-            //                result = self - Self(UIntRef(bitPattern: ~n &+ 1))
-            //            }
-            // TODO: FIX ME
-            fatalError("\(#function) not implemented")
+            let isNegative = n < (0 as IntRef)
+            _if(isNegative) {
+                result = self - Self(UIntRef(bitPattern: ~n &+ 1))
+            }
+            _if(!isNegative) {
+                result = self + Self(UIntRef(bitPattern: n))
+            }
         }
-
-        //        if Self.isSigned {
-        //            return self.bitWidth < n.bitWidth
-        //            ? Self(Int(truncatingIfNeeded: self) + n)
-        //            : self + Self(truncatingIfNeeded: n)
-        //        } else {
-        //            return n < (0 as Int)
-        //            ? self - Self(UInt(bitPattern: ~n &+ 1))
-        //            : self + Self(UInt(bitPattern: n))
-        //        }
         return result
     }
 }
