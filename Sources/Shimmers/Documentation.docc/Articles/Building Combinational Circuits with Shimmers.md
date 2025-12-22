@@ -200,7 +200,7 @@ Shimmers allows loops on arbitrary conditions. The `while`, `repeat`, and `for` 
 This is done by unrolling the loop until the condition is proven to be always false.
 
 For simple cases where the loop is over an array, the bound is trivial: just the length of the array.
-But for complex cases, a Shimmers will attempt to prove it formally.
+But for complex cases, Shimmers will attempt to prove it formally.
 For example, the following is a naive bubble sort in combinational circuits.
 The sorter performs passes of pair-wise swaps until no swaps are done.
 
@@ -226,7 +226,7 @@ static func bubbleSort(arr: Bus<8, Int8>) -> Bus<8, Int8> {
 
 Shimmers will synthesize this function into a combinational circuit just fine.
 Since there are 8 elements, and each pass restores at least 1 element, 7 passes can fully sort the array.
-Thus, the `while` loop is going to be unrolled by 7 times.
+Thus, the `while` loop is going to be unrolled 7 times.
 
 > Note:
 Avoid putting complex conditions in `while` loops, as they take significant time to prove.

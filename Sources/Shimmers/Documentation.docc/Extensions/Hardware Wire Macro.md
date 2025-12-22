@@ -2,7 +2,7 @@
 
 ## Overview
 
-This macro creates an Shimmers wire type in the image of the decorated struct or enum.
+This macro creates a Shimmers wire type in the image of the decorated struct or enum.
 The attached data type will conform to ``Wire``.
 
 > Important:
@@ -30,7 +30,7 @@ struct Instruction {
 
 ### Bitwise Layout for Structs
 
-When attached to a struct, the bit-level contents are their data members arranged from LSB to MSB.
+When attached to a struct, the bit-level content of the represented wire is the concatenation of the contents of its data members arranged from LSB to MSB.
 The size of such a struct wire is the sum of all its data members.
 
 For example, the following struct has the following layout.
@@ -75,6 +75,6 @@ When flattened, a wire in a port is never expanded into its subfields.
 ```
 
 > Important:
-This macro generates an additional struct as peers of the attached struct.
+This macro generates an additional struct as a peer of the attached struct.
 The generated struct is named by adding the suffix `Ref` to the name of the attached struct.
 Do not interact with structs with the `Ref` suffix directly.

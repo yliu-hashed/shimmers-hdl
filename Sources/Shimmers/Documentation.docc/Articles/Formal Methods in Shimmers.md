@@ -289,8 +289,8 @@ Furthermore, you can give loop hints in the form of a comment directly after the
 //:HINT ITR (<min>,<max>)
 ```
 
-For example, if you know the input is always bigger than 3, you will know that the loop never runs for more than 2 times.
-This is because for a minimum input of 4, unrolling of 2 times gives 4+4+4=12, which is the first one above 10.
+For example, if you know the input is always bigger than 3, you will know that the loop never runs more than 2 times.
+This is because for a minimum input of 4, unrolling 2 times gives 4+4+4=12, which is the first one above 10.
 Then, you can add the hint of `(0,2)` to this loop.
 
 ```swift
@@ -336,6 +336,6 @@ let options = SynthOptions(
 Then, during synthesis, these formals will be skipped.
 
 > Warning:
-Since Shimmers uses the RTL netlist during synthesis to perform on-the-fly Formal Verifications, the result of the formals should be correct.
+Since Shimmers uses the RTL netlist during synthesis to perform on-the-fly Formal Verifications, the result of the formal should be correct.
 However, Shimmers is a new framework, and many parts are untested.
 We are still working hard to make sure that Shimmers is fully correct. 

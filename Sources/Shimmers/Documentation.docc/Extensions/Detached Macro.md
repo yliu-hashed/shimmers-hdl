@@ -5,7 +5,7 @@
 The detached macro allows the function the be synthesized out-of-line from the caller.
 
 Synthesis of a detached function begins when a piece of code attempts to call this function.
-Instead of synthesizing the internal of this function, the caller simply inserts a module instantiation and moves on.
+Instead of synthesizing the internals of this function, the caller simply inserts a module instantiation and moves on.
 A new synthesis job will be started that produces the module representing this detached function.
 
 > Note:

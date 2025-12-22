@@ -3,7 +3,7 @@
 ## Overview
 
 This macro makes a global function usable in Shimmers.
-It creates an Shimmers generator in the image of the decorated global function.
+It creates a Shimmers generator in the image of the decorated global function.
 
 > Important:
 This macro can only be used on global functions.

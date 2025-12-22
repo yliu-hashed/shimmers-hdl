@@ -15,9 +15,9 @@ Allowing the insertion of flip-flops anywhere in a function breaks the illusion 
 
 Instead, we begin with the fundamental observation that all sequential circuits can be described by combinational circuits that describe how values change.
 In other words, a sequential circuit is just a `struct` with a `mutating` function.
-This allows us to describe a circuit fully on what it does, instead of what it looks like.
+This allows us to describe a circuit fully in terms of what it does, rather than what it looks like.
 
-The following is a counter that just counts up and wraps back around due to overflow.
+The following is a counter that counts up and wraps back around if overflown.
 
 ```swift
 @HardwareWire

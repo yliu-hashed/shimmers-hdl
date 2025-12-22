@@ -54,7 +54,7 @@ struct VoteResult {
 ```
 
 > Note:
-This struct has a bitlevel layout in hardware.
+This struct has a bit-level layout in hardware.
 If `VoteResult` is in a ports, the order of the ports will match the order of the members.
 If `VoteResult` is flattened, the order of the ports will be declared from LSB to MSB.
 
@@ -110,7 +110,7 @@ Everything in this function will be the content of the exported module.
 This module will have a 10 bits of input for votes, and 2-bit outputs for the vote result. 
 
 > Important:
-Shimmers accepts most of the Swift's way of coding as hardware constructions.
+Shimmers accepts most of Swift's way of coding as hardware constructions.
 For example, the counting function can be rewritten as an initializer of `VoteResult`.
 However, the top-level macro only accepts specific types of functions, which do not include initializers.
 You can use custom initializers, but just cannot be top-level.
@@ -146,7 +146,7 @@ Provide the **exact** name of the module, and the struct it's from.
 await driver.enqueue(#topLevel(name: "vote_counter", of: VoteResult.self))
 ```
 
-Then, wait for synthesis to be done, and print out all the synthesis messages.
+Then, wait for the synthesis to be done, and print out all the synthesis messages.
 
 ```swift
 await driver.waitForAll()
@@ -222,7 +222,7 @@ By writing Swift code, you can more easily reason about its behavior,
 which makes writing correct hardware much easier.
 
 > Tip:
-Swift has good debug infrastructure.
+Swift has a good debug infrastructure.
 If you use a competent IDE for Swift, you can get code stepping and variable inspection.
 This power is lacking in Hardware design, but Shimmers gets it for free, as your design is just regular Swift.
 

@@ -13,7 +13,7 @@ This macro only requires a Boolean input as the asserted condition.
 Assertions are a way of Formal Verification,
 as it ensures that something must be true in the final design.
 
-For example, the following function displays decimal digits on a 7-segment display.
+For example, the following function models a counter.
 It is not designed with `up` and `down` both enabled.
 You can ensure the callers of this code will never run into this condition
 by asserting that `up` and `down` are not both enabled.
