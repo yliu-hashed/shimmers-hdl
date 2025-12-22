@@ -23,14 +23,3 @@ public extension SequenceRef {
         return makeIterator()
     }
 }
-
-
-//extension SequenceRef where Self: IteratorProtocolRef {
-//    @_implements(SequenceRef, IteratorRef)
-//    public typealias _Default_Iterator = Self
-//}
-//
-//public extension SequenceRef where Self.IteratorRef == Self {
-//    func makeIterator() -> Self { self }
-//}
-

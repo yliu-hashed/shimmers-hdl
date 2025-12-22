@@ -12,9 +12,6 @@ extension RangeRef: SequenceRef where BoundRef: StrideableRef, BoundRef.StrideRe
 }
 
 extension RangeRef: CollectionRef where BoundRef: StrideableRef, BoundRef.StrideRef: SignedIntegerRef {
-
-//    public typealias ElementRef = BoundRef
-//    public typealias IteratorRef = IndexingIteratorRef<RangeRef<BoundRef>>
     public typealias IndexRef = BoundRef
 
     public var startIndex: BoundRef {

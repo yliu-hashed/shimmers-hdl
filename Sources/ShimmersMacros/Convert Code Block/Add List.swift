@@ -93,7 +93,6 @@ func addOptional(
     into items: inout [CodeBlockItemSyntax.Item],
     in context: some MacroExpansionContext
 ) throws {
-    //    let cond = conds.joined(by: "&&")
     let cond = conds.descriptionJoined(by: ", ")
     let expr: ExprSyntax = "_if(\(raw: cond)) \(codeBlock)"
     items.append(.expr(expr))
