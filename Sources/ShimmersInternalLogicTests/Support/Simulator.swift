@@ -43,7 +43,7 @@ func simulate(network: borrowing Network, inputs: consuming [String: UInt64]) ->
             continue
         }
         guard let gate = network.gates[wireID] else {
-            fatalError("Attepting to query wire that's not drive and not a gate. Did you forget to a assign an input?")
+            fatalError("Attempting to query wire that's not drive and not a gate. Did you forget to a assign an input?")
         }
         var result: Bool
         switch gate {
