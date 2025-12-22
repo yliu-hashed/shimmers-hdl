@@ -13,23 +13,13 @@ public func _pushDebugFrame(file: StaticString, line: UInt, function: StaticStri
     }
 }
 
-public func _popDebugFrame() {
-    _unsafeScopeIsolated { scope in
-        scope.debugRecorder.popDebugFrame()
-    }
-}
-
 public class _FrameRecorder: @unchecked Sendable {
+    internal var recorder: DebugRecorder
     internal var lastDebugLoc: DebugLocation
     internal var function: StaticString
-    internal var symbols: [String: SymbolValue] = [:]
 
-    enum SymbolValue {
-        case virtual(id: UInt32)
-        case concrete(value: [_WireID])
-    }
-
-    init(lastDebugLoc: DebugLocation, function: StaticString) {
+    init(recorder: DebugRecorder, lastDebugLoc: DebugLocation, function: StaticString) {
+        self.recorder = recorder
         self.function = function
         self.lastDebugLoc = lastDebugLoc
     }
@@ -38,30 +28,12 @@ public class _FrameRecorder: @unchecked Sendable {
         return DebugFrame(lastDebugLoc: lastDebugLoc, function: function)
     }
 
-    func materializeSymbols(in scope: isolated _SynthScope) -> [String: [CNFBuidler.SATVar]] {
-        var symbolTable: [String: [CNFBuidler.SATVar]] = [:]
-        for (name, value) in symbols {
-            switch value {
-            case .concrete(value: let v):
-                symbolTable[name] = v.map({ scope.cnfBuilder.getSATVar(of: $0) })
-            case .virtual(let id):
-                if let wires = scope.tryGetVirtualWires(id: id) {
-                    symbolTable[name] = wires.map({ scope.cnfBuilder.getSATVar(of: $0) })
-                }
-            }
-        }
-        return symbolTable
-    }
-
-    public func record<T>(name: String, value: T) {
-        if let wire = value as? any WireRef {
-            let wires = wire._getAllWireIDs()
-            symbols[name] = .concrete(value: wires)
-        }
-    }
-
     public func updateLocation(file: StaticString, line: UInt) {
         lastDebugLoc = DebugLocation(file: file, line: line)
+    }
+
+    public func pop() {
+        recorder.popDebugFrame()
     }
 }
 
@@ -76,16 +48,13 @@ class DebugRecorder {
         return frames.map { $0.debugFrame }
     }
 
-    func materializeFrames(in scope: isolated _SynthScope) -> [(frame: DebugFrame, symbols: [String: [CNFBuidler.SATVar]])] {
-        return frames.map {
-            (frame: $0.debugFrame,
-             symbols: $0.materializeSymbols(in: scope))
-        }
-    }
-
     @inlinable
     func pushDebugFrame(_ debugLoc: consuming DebugLocation, of function: StaticString) -> _FrameRecorder {
-        let newFrame = _FrameRecorder(lastDebugLoc: debugLoc, function: function)
+        let newFrame = _FrameRecorder(
+            recorder: self,
+            lastDebugLoc: debugLoc,
+            function: function
+        )
         frames.append(newFrame)
         return newFrame
     }

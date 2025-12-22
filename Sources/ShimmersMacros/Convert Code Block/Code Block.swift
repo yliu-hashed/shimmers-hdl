@@ -27,7 +27,7 @@ func convertFullCodeList(
 
     items.append(.decl("let _frame = _pushDebugFrame(file: \(loc.entry?.file), line: \(loc.entry?.line), function: \"\(raw: loc.name)\")"))
     items.append(.expr("_ = _frame"))
-    items.append(.stmt("defer { _popDebugFrame() }"))
+    items.append(.stmt("defer {_frame.pop()}"))
 
     // mutating function
     if isMutating {
