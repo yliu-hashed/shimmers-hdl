@@ -71,8 +71,6 @@ public final actor _SynthScope {
         return lastLoopID
     }
 
-    internal var solverHistory: [UInt64: SolverHistoryEntry] = [:]
-
     internal var debugRecorder = DebugRecorder()
 
     internal var currFrame = CondFrame()

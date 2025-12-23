@@ -33,8 +33,9 @@ func addCodeList(
     }
 
     func addDebugInfo(of syntax: any SyntaxProtocol) {
-        let loc = context.location(of: syntax)
-        items.append(.expr("_frame.updateLocation(file: \(loc?.file), line: \(loc?.line))"))
+        if let loc = context.location(of: syntax) {
+            items.append(.expr("_frame.updateLocation(file: \(loc.file), line: \(loc.line))"))
+        }
     }
 
     var liveSlice = list
@@ -48,23 +49,22 @@ func addCodeList(
             allReEval = try addStmt(referencing: stmt, into: &items, rest: &liveSlice, info: info, in: context)
         case .expr(let expr):
             if let call = expr.as(MacroExpansionExprSyntax.self) {
+                let loc = buildDebugLocation(from: context.location(of: call))
+
                 switch call.macroName.text {
                 case "sim":
                     continue loop
                 case "assert":
                     guard let (value, type, message) = AssertMacro.simpleDecodeParam(of: call) else { continue loop }
-                    let loc = context.location(of: call)
-                    items.append(.expr("_proveAssert(\(value), type: \(type), msg: \(message ?? "nil"), debugLoc: DebugLocation(file: \(loc?.file), line: \(loc?.line)))"))
+                    items.append(.expr("_proveAssert(\(value), type: \(type), msg: \(message ?? "nil"), debugLoc: \(loc))"))
                     continue loop
                 case "assume":
                     guard let (value, type, message) = AssumeMacro.simpleDecodeParam(of: call) else { continue loop }
-                    let loc = context.location(of: call)
-                    items.append(.expr("_proveAssume(\(value), type: \(type), msg: \(message ?? "nil"), debugLoc: DebugLocation(file: \(loc?.file), line: \(loc?.line)))"))
+                    items.append(.expr("_proveAssume(\(value), type: \(type), msg: \(message ?? "nil"), debugLoc: \(loc))"))
                     continue loop
                 case "never":
                     guard let (type, message) = NeverMacro.simpleDecodeParam(of: call) else { continue loop }
-                    let loc = context.location(of: call)
-                    items.append(.expr("_proveNever(type: \(type), msg: \(message ?? "nil"), debugLoc: DebugLocation(file: \(loc?.file), line: \(loc?.line)))"))
+                    items.append(.expr("_proveNever(type: \(type), msg: \(message ?? "nil"), debugLoc: \(loc))"))
                     continue loop
                 default: break
                 }

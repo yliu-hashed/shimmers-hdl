@@ -26,16 +26,14 @@ public enum AssertionType: Sendable, Hashable, ExpressibleByStringLiteral {
     case custom(name: String)
 
     /// All cases of ``AssertionType`` excluding any custom values.
-    public static var builtinValues: [AssertionType] {
-        [
-            .bound,
-            .overflowConvert,
-            .overflowMath,
-            .assumption,
-            .assert,
-            .never,
-        ]
-    }
+    public static let builtinValues: [AssertionType] = [
+        .bound,
+        .overflowConvert,
+        .overflowMath,
+        .assumption,
+        .assert,
+        .never,
+    ]
 
     @inlinable
     public init(stringLiteral value: String) {

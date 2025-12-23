@@ -8,12 +8,19 @@
 
 import Foundation
 
-internal struct SolverHistoryEntry {
-    var hintMin: Int
-    var hintMax: Int?
+public struct _LoopInfo: Sendable {
+    let hintMin: Int
+    let hintMax: Int?
+    let debugLoc: DebugLocation?
     var runs: Int = 0
     var cumulativeRuntime: Double = 0
     var tooLongWarningPrinted: Bool = false
+
+    public init(hintMin: Int = 0, hintMax: Int? = nil, debugLoc: DebugLocation?) {
+        self.hintMax = hintMax
+        self.hintMin = hintMin
+        self.debugLoc = debugLoc
+    }
 }
 
 extension _SynthScope {
@@ -22,42 +29,23 @@ extension _SynthScope {
     static let proveLoopRuntimeLimitTotal: Double = 100
 
     @usableFromInline
-    func discardLoopHistory(for loopID: UInt64?) {
-        guard let loopID else { return }
-        solverHistory[loopID] = nil
-    }
-
-    @usableFromInline
     func proveLoop(
-        _ condition: BoolRef, id loopID: inout UInt64?,
-        hintMin: Int = 0,
-        hintMax: Int? = nil,
-        debugLoc: DebugLocation?
+        _ condition: BoolRef,
+        for loopInfo: inout _LoopInfo
     ) -> Bool {
         guard !didEncounteredErrors() else { return false }
 
         let wireID = condition.wireID
 
         // create ID and fetch history
-        let id: UInt64
-        var history: SolverHistoryEntry
-        if let loopID {
-            id = loopID
-            history = solverHistory[id]!
-        } else {
-            id = genLoopID()
-            loopID = id
-            history = SolverHistoryEntry(hintMin: hintMin, hintMax: hintMax)
-        }
-        history.runs += 1
-        defer { solverHistory[id] = history }
+        loopInfo.runs += 1
 
         // always unroll if hinted
-        if history.runs <= history.hintMin {
+        if loopInfo.runs <= loopInfo.hintMin {
             return true
         }
         // stop unroll if hinted
-        if let hintMax = history.hintMax, history.runs > hintMax {
+        if let hintMax = loopInfo.hintMax, loopInfo.runs > hintMax {
             return false
         }
         // constant
@@ -65,7 +53,7 @@ extension _SynthScope {
             return constant
         }
 
-        let debugLoc = debugLoc ?? debugRecorder.lastDebugLoc ?? .unknown
+        let debugLoc = loopInfo.debugLoc ?? debugRecorder.lastDebugLoc ?? .unknown
 
         guard let kissatURL = kissatURL else {
             let debugFrames = debugRecorder.simpleFrames()
@@ -87,17 +75,17 @@ extension _SynthScope {
         )
 
         // update stats
-        history.cumulativeRuntime += max(Double(duration) - 0.1, 0)
+        loopInfo.cumulativeRuntime += max(Double(duration) - 0.1, 0)
 
         // warn if already took too long
-        if !history.tooLongWarningPrinted, history.cumulativeRuntime > Self.proveLoopRuntimeLimitTotal {
+        if !loopInfo.tooLongWarningPrinted, loopInfo.cumulativeRuntime > Self.proveLoopRuntimeLimitTotal {
             messageManager.add(
                 at: debugLoc,
                 in: debugRecorder.simpleFrames(),
                 type: .error,
-                "Has spent a total of more than \(Self.proveLoopRuntimeLimit)s (\(history.runs) iterations) on this loop. Consider converting it to bounded 'for' loops, or add hint instead."
+                "Has spent a total of more than \(Self.proveLoopRuntimeLimit)s (\(loopInfo.runs) iterations) on this loop. Consider converting it to bounded 'for' loops, or add hint instead."
             )
-            history.tooLongWarningPrinted = true
+            loopInfo.tooLongWarningPrinted = true
         }
 
         // return result
@@ -122,26 +110,12 @@ extension _SynthScope {
 @inlinable
 public func _proveLoop(
     _ condition: BoolRef,
-    id loopID: inout UInt64?,
-    hintMin: Int = 0,
-    hintMax: Int? = nil,
-    debugLoc: DebugLocation? = nil
+    for loopInfo: inout _LoopInfo
 ) -> Bool {
     return _unsafeScopeIsolated { scope in
         return scope.proveLoop(
             condition,
-            id: &loopID,
-            hintMin: hintMin,
-            hintMax: hintMax,
-            debugLoc: debugLoc
+            for: &loopInfo
         )
-    }
-}
-
-@inlinable
-public func _discardLoopHistory(for loopID: UInt64?) {
-    guard let loopID = loopID else { return }
-    _unsafeScopeIsolated { scope in
-        scope.discardLoopHistory(for: loopID)
     }
 }

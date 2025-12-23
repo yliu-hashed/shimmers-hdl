@@ -46,8 +46,8 @@ func addWhileStmt(
     let cnt: TokenSyntax = "_cnt\(raw: loopID)"
     let track: TokenSyntax = "_id\(raw: loopID)"
 
-    items.append(.decl("var \(track): UInt64? = nil"))
-    items.append(.stmt("defer {_discardLoopHistory(for: \(track))}"))
+    let loc = buildDebugLocation(from: context.location(of: stmt))
+    items.append(.decl("var \(track) = _LoopInfo(hintMin: \(raw: hintMin), hintMax: \(raw: hintMax), debugLoc: \(loc))"))
     items.append(.decl("@_Local var \(brk): BoolRef = false"))
 
     // create new condition
@@ -57,8 +57,7 @@ func addWhileStmt(
     // create body
     var newItems: [CodeBlockItemSyntax.Item] = []
     newItems.append(.decl("@_Local var _c: BoolRef = \(raw: loopCond)"))
-    let loc = context.location(of: stmt)
-    newItems.append(.stmt("guard _proveLoop(_c, id: &\(track), hintMin: \(raw: hintMin), hintMax: \(raw: hintMax), debugLoc: DebugLocation(file: \(loc?.file), line: \(loc?.line))) else { break }"))
+    newItems.append(.stmt("guard _proveLoop(_c, for: &\(track)) else { break }"))
 
     newItems.append(.decl("@_Local var \(cnt): BoolRef = !(\(convertedCond))"))
 

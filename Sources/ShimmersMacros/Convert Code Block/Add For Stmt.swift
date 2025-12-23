@@ -31,8 +31,8 @@ func addForStmt(
     let ele: TokenSyntax = "_ele\(raw: loopID)"
     let track: TokenSyntax = "_id\(raw: loopID)"
 
-    items.append(.decl("var \(track): UInt64? = nil"))
-    items.append(.stmt("defer {_discardLoopHistory(for: \(track))}"))
+    let loc = buildDebugLocation(from: context.location(of: stmt))
+    items.append(.decl("var \(track) = _LoopInfo(hintMin: \(raw: hint.min ?? 0), hintMax: \(raw: String(describing: hint.max)), debugLoc: \(loc))"))
     items.append(.decl("@_Local var \(brk): BoolRef = false"))
 
     // make iterator
@@ -56,8 +56,7 @@ func addForStmt(
         context.addDiagnostics(from: err, node: stmt.sequence)
     }
 
-    let loc = context.location(of: stmt)
-    newItems.append(.stmt("guard _proveLoop(_c, id: &\(track), hintMin: \(raw: hint.min ?? 0), hintMax: \(raw: String(describing: hint.max)), debugLoc: DebugLocation(file: \(loc?.file), line: \(loc?.line))) else { break }"))
+    newItems.append(.stmt("guard _proveLoop(_c, for: &\(track)) else { break }"))
 
     newItems.append(.decl("@_Local var \(cnt): BoolRef = !\(ele)._isValid"))
 
