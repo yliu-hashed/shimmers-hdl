@@ -74,6 +74,12 @@ class Rewriter: SyntaxRewriter {
         return super.visit(node.with(\.name, converted))
     }
 
+    public override func visit(_ node: InlineArrayTypeSyntax) -> TypeSyntax {
+        let count = visit(node.count).trimmed
+        let element = visit(node.element).trimmed
+        return "InlineArrayRef<\(count),\(element)>"
+    }
+
     public override func visit(_ expr: DeclReferenceExprSyntax) -> ExprSyntax {
         guard expr.argumentNames == nil else { return ExprSyntax(expr) }
         let converted = convertTypeToken(expr.baseName)

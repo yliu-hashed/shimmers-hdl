@@ -22,7 +22,7 @@ fileprivate struct ArrayIndexGet {
 
 @HardwareWire
 fileprivate struct ArrayIndexSet {
-    var result: InlineArray<8, UInt8>
+    var result: [8 of UInt8]
 
     static func set(index: Int, value: UInt8) -> Self {
         var arr: InlineArray<8, UInt8> = [1, 3, 7, 22, 34, 99, 123, 234]
@@ -36,7 +36,7 @@ fileprivate struct ArrayIndexSwap {
     var result: InlineArray<8, UInt8>
 
     static func swap(indexA: Int, indexB: Int) -> Self {
-        var arr: InlineArray<8, UInt8> = [1, 3, 7, 22, 34, 99, 123, 234]
+        var arr: [8 of UInt8] = [1, 3, 7, 22, 34, 99, 123, 234]
         arr.swapAt(indexA, indexB)
         return .init(result: arr)
     }
