@@ -1,18 +1,21 @@
 # Getting Started with Shimmers
 
-Learn to set up and generate a simple circuit with Shimmers.
+Explore how to set up and generate a simple circuit with Shimmers.
 
 ## Overview
 
-This guide walks through creating a simple circuit using Shimmers, simulating its behavior in Swift, and generating it into Verilog netlists.
+This guide walks through the process of creating a simple circuit using Shimmers, simulating its behavior in Swift, and generating it into Verilog netlists.
 
 We will be creating a simple combinational circuit that evaluates a majority voting condition.
 
 ## Adding Shimmers as a Dependency
 
-Begin by creating a regular Swift Package. Add `Shimmers` as a dependency of our package,
-and then include `Shimmers` as a dependency for our executable target.
-Our "Package.swift" will look like this:
+Begin by creating a regular Swift Package.
+You can do so by either using Swift Package Manager, Xcode, or whatever IDE you write Swift with.
+
+Then, add `Shimmers` as a dependency of the created package,
+and include `Shimmers` as a dependency for our executable target.
+Our "Package.swift" will look like the following.
 
 ```swift
 // swift-tools-version:6.2
@@ -56,12 +59,15 @@ struct VoteResult {
 > Note:
 This struct has a bit-level layout in hardware.
 If `VoteResult` is in a ports, the order of the ports will match the order of the members.
-If `VoteResult` is flattened, the order of the ports will be declared from LSB to MSB.
+If `VoteResult` is flattened, the order of the ports will be declared from MSB to LSB according to the declared order.
+This order is not the memory representation of the struct in regular Swift!
 
 ## Building Our First Circuit
 
 Then, we need to describe the process of counting the votes.
 This can be done by writing a static function that receives the votes and returns a `VoteResult`.
+In the function, we loop over all votes and increment two counters, each representing the accepting and rejecting counts.
+Lastly, we return a win when the accepting count is greater than the rejecting count, and return a tie when both counts are equal.
 
 ```swift
 import Shimmers
@@ -91,29 +97,28 @@ struct VoteResult {
 ```
 
 Observe that this is just a regular Swift function.
-This function counts the number of accepts and rejects by successive addition,
-and compares the number of accepts and rejects to determine if the vote is **win** or **tie**.
 
 > Note:
-Everything should be active high.
+In Shimmers, everything should be active high.
 A value of `true` means logic high.
 
 > Experiment:
-My counting function is inefficient. Can you think of a more clever way to rewrite this?
+My counting function is inefficient. Can you think of a more clever way to rewrite this that optimizes logic depth?
 
 The ``Bus`` type is an alias of Swift's ``Swift/InlineArray``.
-This is done to appeal to the hardware community. 
-Similarly, ``Bit`` is an alias of ``Swift/Bool``, which is not used here. 
+This is done to appeal to the hardware community.
+Both types can be mixed and used interchangeably.
+Similarly, ``Bit`` is an alias of ``Swift/Bool``, which is not mentioned in this tutorial.
 
 The ``TopLevel(name:isSequential:)`` is an attached macro that annotates that our `count(votes:)` function is the entry point of this design.
 Everything in this function will be the content of the exported module.
-This module will have a 10 bits of input for votes, and 2-bit outputs for the vote result. 
+This module will have 4 bits of input for votes, and 2-bit outputs for the vote result. 
 
 > Important:
 Shimmers accepts most of Swift's way of coding as hardware constructions.
 For example, the counting function can be rewritten as an initializer of `VoteResult`.
 However, the top-level macro only accepts specific types of functions, which do not include initializers.
-You can use custom initializers, but just cannot be top-level.
+You can use custom initializers, but they just cannot be top-level.
 
 ## Use the Driver to Generate Verilogs
 
@@ -124,7 +129,6 @@ We just need the ``SynthDriver`` to use them.
 First, create a URL class that declares your desired path to store the Verilog files.
 Then, create a default ``SynthOptions``.
 Lastly, create an instance of ``SynthDriver``.
-Since these are executable code, you should put them in an `async` function, or "main.swift".
 
 ```swift
 let workingDir = URL(filePath: "target path of generate content")
@@ -138,6 +142,8 @@ let driver = SynthDriver(
 ```
 
 Then, let's generate a Verilog module.
+Since these are executable code, you should put them in an `async` function, or "main.swift".
+
 First, enqueue our top-level module as a job.
 Refers to our top-level module using the ``topLevel(name:of:)`` expression macro.
 Provide the **exact** name of the module, and the struct it's from.
@@ -192,7 +198,9 @@ The circuits you write in Shimmers are just some regular Swift code.
 Simulating the circuit is just about the code you already wrote.
 
 For example, you can create a unit test by using [Swift Testing](https://github.com/swiftlang/swift-testing).
-But in here, I will show you a dumb way of testing your code: just run it in "main.swift". First, comment out all the driver code in the last section.
+But in here, let's use the dumbest way of testing your code: just run it in "main.swift".
+
+First, comment out all the driver code in the last section.
 Then, add the following:
 
 ```swift
@@ -205,6 +213,8 @@ print(result2) // prints: Result(win: true, tie: false)
 let result3 = VoteResult.count(votes: [false, false, false, true])
 print(result3) // prints: Result(win: false, tie: false)
 ```
+
+To improve this test, you can turn these print statements into Swift assertions or preconditions.
 
 In [Swift Testing](https://github.com/swiftlang/swift-testing), a test case would look like this:
 
@@ -224,7 +234,6 @@ which makes writing correct hardware much easier.
 > Tip:
 Swift has a good debug infrastructure.
 If you use a competent IDE for Swift, you can get code stepping and variable inspection.
-This power is lacking in Hardware design, but Shimmers gets it for free, as your design is just regular Swift.
 
 > Warning:
 At this moment, simulating by just running your Swift code **does not** replace functional RTL-level simulation.

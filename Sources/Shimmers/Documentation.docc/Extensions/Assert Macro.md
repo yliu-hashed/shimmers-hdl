@@ -2,16 +2,14 @@
 
 ## Overview
 
-This macro turned into Swift's `precondition` during runtime.
-This allows simulations to check that the argument is always true.
-Similarly, during synthesis, Shimmers will attempt to prove it's always true.
-Synthesis will fail if this value can be false.
+The ``assert(_:type:_:)`` macro is used to ensure a signal is valid (being always true).
+During synthesis, Shimmers will attempt to prove its validity.
+Synthesis will fail if this value is falsifiable.
+Similarly, this macro turned into Swift's `precondition` during runtime.
 
-This macro only requires a Boolean input as the asserted condition.
+### Typical Usages
 
-> Tip:
-Assertions are a way of Formal Verification,
-as it ensures that something must be true in the final design.
+Assertion is a way of **Formal Verification**.
 
 For example, the following function models a counter.
 It is not designed with `up` and `down` both enabled.

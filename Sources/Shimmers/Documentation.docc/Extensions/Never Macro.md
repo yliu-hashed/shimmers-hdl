@@ -9,6 +9,8 @@ This allows simulations to check that the code path can never be executed.
 Similarly, during synthesis, Shimmers will attempt to prove it's never executed.
 Synthesis will fail if it can.
 
+### Typical Usages
+
 For example, the following code for a simple ALU is not designed to execute a store instruction.
 Thus, it must be ensured formally that any code that uses this ALU
 must not give it load and store instructions.

@@ -3,7 +3,7 @@
 ## Overview
 
 Simulation runtime will check the argument is true just like ``assert(_:type:_:)``.
-However, only the contradictions of this assumption are formally verified, not its truth.  
+However, only the contradictions of this assumption are formally verified, not its validity.  
 
 ```swift
 func foo(x: Int8) {
@@ -17,14 +17,17 @@ func bar(x: Bool) {
 }
 ```
 
-Assumptions are typically not needed, as synthesis usually has a full view of the entire circuit.
-However, for top-level port signals, or signals returned by detached modules,
-the behaviors of those signals are treated as fully free, in that they could be any value.
-It is thus necessary to ensure that the contracts of those wires are never lost.
+### Typical Usages
+
+For top-level port signals, or signals returned by detached modules,
+the behaviors of those signals are treated as free, independent variables.
+This may not be desirable, as downstream assertions may give false positives.
+It is thus necessary to use assumptions to **recover the relationships of those wires**.
 
 For example, the code below contains a loop determined by the input variable.
 Suppose that the argument `x` is never negative in actual usages of `foo`.
-Without the assumption, the loop will unroll 131 times, as the `x` could be at worst -128.
+Without the assumption, the loop will unroll 131 times.
+This is because `x` could be at worst -128, and Shimmers cannot prove the definitive stop of the loop after it is unrolled by 131 times.
 This will result in long synthesis times and unnecessarily large circuits.
 But by adding `#assume(x >= 0)`, the domain of `x` is recovered,
 and the loop will only unroll 3 times.
@@ -42,7 +45,3 @@ func foo(x: Int8) -> Int {
     return result
 }
 ```
-
-> Note: 
-In some scenarios, assumptions can reduce synthesis and subsequent formal effort,
-since it restricts the problem domain.
