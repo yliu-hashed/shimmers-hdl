@@ -55,55 +55,14 @@ extension _SynthScope {
 
         let debugLoc = loopInfo.debugLoc ?? debugRecorder.lastDebugLoc ?? .unknown
 
-        guard let kissatURL = kissatURL else {
-            let debugFrames = debugRecorder.simpleFrames()
-            messageManager.add(
-                at: debugLoc, in: debugFrames, type: .error,
-                "Unable to unroll loops. Kissat binary not found."
-            )
-            return false
-        }
+        // TODO: Fix Prove Loop
 
-        // emit and solve the sat problem
-        let problem = cnfBuilder.emitProblemCNF(newClauseList: [[wireID]])
-        let (result, _, duration) = proveKissat(
-            problem: problem,
-            solverURL: kissatURL,
-            timeout: Self.proveLoopRuntimeLimit,
-            priority: .default,
-            needModel: false
+        let debugFrames = debugRecorder.simpleFrames()
+        messageManager.add(
+            at: debugLoc, in: debugFrames, type: .error,
+            "Unable to unroll loops. Not yet supported."
         )
-
-        // update stats
-        loopInfo.cumulativeRuntime += max(Double(duration) - 0.1, 0)
-
-        // warn if already took too long
-        if !loopInfo.tooLongWarningPrinted, loopInfo.cumulativeRuntime > Self.proveLoopRuntimeLimitTotal {
-            messageManager.add(
-                at: debugLoc,
-                in: debugRecorder.simpleFrames(),
-                type: .error,
-                "Has spent a total of more than \(Self.proveLoopRuntimeLimit)s (\(loopInfo.runs) iterations) on this loop. Consider converting it to bounded 'for' loops, or add hint instead."
-            )
-            loopInfo.tooLongWarningPrinted = true
-        }
-
-        // return result
-        switch result {
-        case .satisfiable:
-            return true
-        case .unsatifiable:
-            cnfBuilder.assert(!wireID)
-            return false
-        case .timeout:
-            messageManager.add(
-                at: debugLoc,
-                in: debugRecorder.simpleFrames(),
-                type: .warning,
-                "Cannot prove unroll condition in reasonable time, use bounded 'for' loops instead"
-            )
-            return false
-        }
+        return false
     }
 }
 

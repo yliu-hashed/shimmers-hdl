@@ -18,7 +18,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.6.0")),
-        .package(url: "https://github.com/swiftlang/swift-syntax.git", .upToNextMinor(from: "602.0.0"))
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", .upToNextMinor(from: "602.0.0")),
+        .package(url: "https://github.com/swiftlang/swift-subprocess.git", branch: "main")
     ],
     targets: [
         .macro(
@@ -32,7 +33,10 @@ let package = Package(
         ),
         .target(
             name: "Shimmers",
-            dependencies: ["ShimmersMacros"],
+            dependencies: [
+                .target(name: "ShimmersMacros"),
+                .product(name: "Subprocess", package: "swift-subprocess"),
+            ],
         ),
         .target(
             name: "ShimmersCLIWrapper",

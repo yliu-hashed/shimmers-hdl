@@ -82,11 +82,11 @@ public struct ShimmersSynthCommandBase<Provider: GeneratorsDriverCommand>: Async
         }
 
         let url = URL(fileURLWithPath: path, isDirectory: true)
-        let kissatURL: URL?
+        let kissat: SolverLocation
         if let path = kissatPath {
-            kissatURL = URL(fileURLWithPath: path, isDirectory: true)
+            kissat = .custom(path: path)
         } else {
-            kissatURL = nil
+            kissat = .inferFromPath
         }
 
         // for a set of disabled assertions
@@ -100,7 +100,7 @@ public struct ShimmersSynthCommandBase<Provider: GeneratorsDriverCommand>: Async
         }
 
         let options = SynthOptions(
-            kissatURL: kissatURL,
+            kissat: kissat,
             disabledAssertions: assertions,
             printIncludes: printIncludes
         )

@@ -7,6 +7,12 @@
 //
 
 import Foundation
+import Subprocess
+#if canImport(System)
+@preconcurrency import System
+#else
+@preconcurrency import SystemPackage
+#endif
 
 public struct _WireID: Hashable, Equatable, ExpressibleByBooleanLiteral, Sendable {
     @usableFromInline
@@ -55,7 +61,16 @@ public final actor _SynthScope {
         self.name = name
         self.moduleNamePrefix = options.moduleNamePrefix
         self.enabledAssertions = options.disabledAssertions.complement
-        self.kissatURL = options.kissatURL
+
+        switch options.kissat {
+        case .none:
+            kissatPath = nil
+        case .inferFromPath:
+            let exec = Executable.name("kissat")
+            kissatPath = try? exec.resolveExecutablePath(in: .inherit)
+        case .custom(let path):
+            kissatPath = FilePath(path)
+        }
     }
 
     private var lastVirtualID: UInt32 = 0
@@ -78,7 +93,8 @@ public final actor _SynthScope {
     internal var cnfBuilder = CNFBuidler()
 
     internal var enabledAssertions: AssertionSet
-    internal var kissatURL: URL?
+
+    internal var kissatPath: FilePath?
 
     internal var messageManager: MessageManager = MessageManager()
     internal var localEncounteredError: Bool = false

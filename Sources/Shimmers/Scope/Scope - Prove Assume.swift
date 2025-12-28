@@ -25,7 +25,7 @@ extension _SynthScope {
         let debugLoc = debugLoc ?? debugRecorder.lastDebugLoc ?? .unknown
         let debugFrames = debugRecorder.simpleFrames()
 
-        guard let kissatURL = kissatURL else {
+        guard let kissatPath = kissatPath else {
             messageManager.add(
                 at: debugLoc, in: debugFrames, type: .warning,
                 "Solving skipped. Kissat binary not found."
@@ -44,13 +44,11 @@ extension _SynthScope {
         let asyncMessageManager = messageManager.async
         let asyncMessageID = messageManager.reserveMessageID()
 
-        let task = Task.detached {
-            let (result, _, _) = proveKissat(
+        let task = Task.detached { [kissatPath] in
+            let (result, _) = await proveKissat(
                 problem: problem,
-                solverURL: kissatURL,
-                timeout: Self.proveAssumeRuntimeLimit,
-                priority: .background,
-                needModel: false
+                path: kissatPath,
+                timeout: Self.proveAssumeRuntimeLimit
             )
 
             switch result {

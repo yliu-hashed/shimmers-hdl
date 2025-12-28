@@ -28,20 +28,21 @@ public struct _WaitableSynthJob: Sendable {
 }
 
 public struct SynthOptions: Sendable {
-    public var kissatURL: URL?
+    public var kissat: SolverLocation
     public var disabledAssertions: AssertionSet
     public var printIncludes: Bool = false
     public var fileNamePrefix: String = ""
     public var moduleNamePrefix: String = ""
 
     public init(
-        kissatURL: URL? = nil,
+        kissat: SolverLocation = .inferFromPath,
         disabledAssertions: AssertionSet = [],
         printIncludes: Bool = false,
         fileNamePrefix: String = "",
         moduleNamePrefix: String = ""
     ) {
-        self.kissatURL = kissatURL
+        self.kissat = kissat
+
         self.disabledAssertions = disabledAssertions
         self.printIncludes = printIncludes
         self.fileNamePrefix = fileNamePrefix
@@ -50,7 +51,7 @@ public struct SynthOptions: Sendable {
 
     static var testing: SynthOptions {
         return Self(
-            kissatURL: nil,
+            kissat: .none,
             disabledAssertions: [
                 .bound,
                 .overflowConvert,
